@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:loginpage_tz3/pages/auth.dart';
+import 'package:loginpage_tz3/pages/authorization/auth.dart';
 
 const Color arrowBackColorForgetPasswordPage = Color.fromRGBO(27, 54, 93, 1);
 const Color labelTextColorForgetPasswordPage = Color.fromRGBO(27, 54, 93, 1);
