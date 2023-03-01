@@ -28,8 +28,8 @@ class _HomePageState extends State<HomePage> {
             ),
             showUnselectedLabels: true,
             backgroundColor: backgroundColor,
-            selectedItemColor: colorselected,
-            unselectedItemColor: colorunselected,
+            selectedItemColor: colorSelected,
+            unselectedItemColor: colorUnSelected,
             selectedLabelStyle: TextStyle(
               fontSize: 12,
               fontWeight: FontWeight.w600,
@@ -71,27 +71,27 @@ class _HomePageState extends State<HomePage> {
         ),
         body: <Widget>[
           Container(
-            color: colorhome,
+            color: colorHome,
             alignment: Alignment.center,
             child: const Text('There would be a Main Page here'),
           ),
           Container(
-            color: colorschedule,
+            color: colorSchedule,
             alignment: Alignment.center,
             child: const Text('There would be a Schedule Page here'),
           ),
           Container(
-            color: colortasks,
+            color: colorTasks,
             alignment: Alignment.center,
             child: const Text('There would be a Tasks Page here'),
           ),
           Container(
-            color: colormessenger,
+            color: colorMessenger,
             alignment: Alignment.center,
             child: const Text('There would be a Messenger Page here'),
           ),
           Container(
-            color: colorprofile,
+            color: colorProfile,
             alignment: Alignment.center,
             child: const Text('There would be a Profile Page here'),
           ),
