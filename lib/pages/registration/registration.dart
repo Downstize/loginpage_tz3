@@ -2,10 +2,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:loginpage_tz3/main.dart';
-import 'package:loginpage_tz3/pages/auth.dart';
+import 'package:loginpage_tz3/pages/authorization/auth.dart';
 
 
-import 'home.dart';
+import '../home/home.dart';
 
 class RegistrationPage extends StatefulWidget {
   const RegistrationPage({super.key});
