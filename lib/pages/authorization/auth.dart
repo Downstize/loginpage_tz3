@@ -15,8 +15,14 @@ class AuthPage extends StatefulWidget {
 }
 
 class _AuthPageState extends State<AuthPage> {
+  final TextEditingController _inputController = TextEditingController();
   final formKey = GlobalKey<FormState>();
   String tabelNumber = "";
+  @override
+  void dispose() {
+    _inputController.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,6 +78,7 @@ class _AuthPageState extends State<AuthPage> {
               child: Padding(
                 padding: const EdgeInsets.only(top: 20.0),
                 child: TextFormField(
+                  controller: _inputController,
                   inputFormatters: [
                     FilteringTextInputFormatter.allow(
                       RegExp(r'[0-9]'),
@@ -135,6 +142,7 @@ class _AuthPageState extends State<AuthPage> {
                     ),
                   ),
                 ),
+                
                 onPressed: () {
                   if (numberCorrect()) {
                     Navigator.push(
