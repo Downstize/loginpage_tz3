@@ -2,10 +2,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:loginpage_tz3/main.dart';
-import 'package:loginpage_tz3/pages/authorization/auth.dart';
+import 'package:loginpage_tz3/widgetVerify/buttonWidget.dart';
 
-
-import '../home/home.dart';
+bool passwordVisibleTop = false;
+bool passwordVisibleBottom = false;
 
 class RegistrationPage extends StatefulWidget {
   const RegistrationPage({super.key});
@@ -15,8 +15,27 @@ class RegistrationPage extends StatefulWidget {
 }
 
 class _RegistrationPageState extends State<RegistrationPage> {
+  final _inputController = TextEditingController();
+  bool buttonSend = false;
   final formKey = GlobalKey<FormState>();
   String tabelNumber = "";
+  String emailAdd = "@edu.rut-miit.ru";
+  @override
+  void initState() {
+    super.initState();
+    _inputController.addListener(() {
+      setState(() {
+        buttonSend = _inputController.text.length == 7;
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _inputController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,7 +68,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       ),
                     ),
                   ),
-                  Text(""),
+                  const Text(""),
                 ],
               ),
               Padding(
@@ -73,6 +92,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 child: Padding(
                   padding: const EdgeInsets.only(top: 30.0),
                   child: TextFormField(
+                    controller: _inputController,
                     inputFormatters: [
                       FilteringTextInputFormatter.allow(
                         RegExp(r'[0-9]'),
@@ -99,19 +119,11 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       floatingLabelStyle:
                           TextStyle(color: floatingLoginLabelColor),
                       labelText: 'Табельный номер',
-                      
                     ),
                     onChanged: (val) {
                       setState(() {
                         tabelNumber = val;
                       });
-                    },
-                    validator: (val) {
-                      if (val!.length < 7) {
-                        return "Табельный номер должен состоять из 7 символов";
-                      } else {
-                        return null;
-                      }
                     },
                   ),
                 ),
@@ -119,24 +131,24 @@ class _RegistrationPageState extends State<RegistrationPage> {
               Padding(
                 padding: const EdgeInsets.only(top: 20.0),
                 child: ElevatedButton(
-                  style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all<Color>(authButtonColor),
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15.0),
-                      ),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: authButtonColor,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.0),
                     ),
+                    disabledForegroundColor: Colors.grey,
                   ),
-                  onPressed: () {
-                    if (numberCorrect()) {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  const CodeVerificationRegistration()));
-                    }
-                  },
+                  onPressed: buttonSend
+                      ? () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const CodeVerificationRegistration()));
+
+                          tabelNumber = tabelNumber + emailAdd;
+                        }
+                      : null,
                   child: const SizedBox(
                     width: 330.0,
                     height: 50.0,
@@ -158,14 +170,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
       ),
     );
   }
-
-  numberCorrect() {
-    if (formKey.currentState!.validate()) {
-      return true;
-    } else {
-      return false;
-    }
-  }
 }
 
 class CodeVerificationRegistration extends StatefulWidget {
@@ -179,6 +183,11 @@ class CodeVerificationRegistration extends StatefulWidget {
 class _CodeVerificationRegistrationState
     extends State<CodeVerificationRegistration> {
   final formKey = GlobalKey<FormState>();
+  final _inputController1 = TextEditingController();
+  final _inputController2 = TextEditingController();
+  final _inputController3 = TextEditingController();
+  final _inputController4 = TextEditingController();
+  final _inputController5 = TextEditingController();
   String verifyField1 = "";
   String verifyField2 = "";
   String verifyField3 = "";
@@ -186,10 +195,12 @@ class _CodeVerificationRegistrationState
   String verifyField5 = "";
   int secondsRemaining = 60;
   bool enableResend = false;
+  bool submit = false;
   late Timer timer;
   @override
   initState() {
     super.initState();
+
     timer = Timer.periodic(const Duration(seconds: 1), (_) {
       if (secondsRemaining != 0) {
         setState(() {
@@ -203,6 +214,24 @@ class _CodeVerificationRegistrationState
     });
   }
 
+  bool checkVerifyCodeRegPage() {
+    submit = _inputController1.text.isNotEmpty &&
+            _inputController2.text.isNotEmpty &&
+            _inputController3.text.isNotEmpty &&
+            _inputController4.text.isNotEmpty &&
+            _inputController5.text.isNotEmpty == true
+        ? true
+        : false;
+    return submit;
+  }
+
+  @override
+  void dispose() {
+    timer.cancel();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
@@ -238,7 +267,7 @@ class _CodeVerificationRegistrationState
                       ),
                     ),
                   ),
-                  Text(""),
+                  const Text(""),
                 ],
               ),
               Padding(
@@ -265,20 +294,12 @@ class _CodeVerificationRegistrationState
                       SizedBox(
                         width: 60,
                         child: TextFormField(
-                          onChanged: (val) {
-                            setState(() {
-                              verifyField1 = val;
-                            });
-                            if (val.length == 1) {
+                          controller: _inputController1,
+                          onChanged: (value) {
+                            if (value.length == 1) {
                               FocusScope.of(context).nextFocus();
                             }
                           },
-                          // validator: (val) {
-                          //   if (val!.length < 1) {
-                          //     return ;
-                          //   }
-                            
-                          // },
                           inputFormatters: [
                             LengthLimitingTextInputFormatter(1),
                             FilteringTextInputFormatter.digitsOnly
@@ -319,6 +340,7 @@ class _CodeVerificationRegistrationState
                       SizedBox(
                         width: 60,
                         child: TextFormField(
+                          controller: _inputController2,
                           onChanged: (value) {
                             if (value.length == 1) {
                               FocusScope.of(context).nextFocus();
@@ -352,7 +374,8 @@ class _CodeVerificationRegistrationState
                       ),
                       SizedBox(
                         width: 60,
-                        child: TextField(
+                        child: TextFormField(
+                          controller: _inputController3,
                           onChanged: (value) {
                             if (value.length == 1) {
                               FocusScope.of(context).nextFocus();
@@ -386,7 +409,8 @@ class _CodeVerificationRegistrationState
                       ),
                       SizedBox(
                         width: 60,
-                        child: TextField(
+                        child: TextFormField(
+                          controller: _inputController4,
                           onChanged: (value) {
                             if (value.length == 1) {
                               FocusScope.of(context).nextFocus();
@@ -420,7 +444,8 @@ class _CodeVerificationRegistrationState
                       ),
                       SizedBox(
                         width: 60,
-                        child: TextField(
+                        child: TextFormField(
+                          controller: _inputController5,
                           onChanged: (value) {
                             if (value.length == 1) {
                               FocusScope.of(context).nextFocus();
@@ -484,40 +509,7 @@ class _CodeVerificationRegistrationState
                     SizedBox(
                       width: 310,
                       height: 50,
-                      child: ElevatedButton(
-                        style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all<Color>(authButtonColor),
-                          shape:
-                              MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15.0),
-                            ),
-                          ),
-                        ),
-                        onPressed: () {
-                          if (verifyNumberCorrect()) {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        const NewPassRegistrationPage()));
-                          }
-                        },
-                        child: const SizedBox(
-                          width: 330.0,
-                          height: 50.0,
-                          child: Center(
-                            child: Text(
-                              'Отправить',
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white),
-                            ),
-                          ),
-                        ),
-                      ),
+                      child: Buttonregistrate(active: checkVerifyCodeRegPage()),
                     ),
                   ],
                 ),
@@ -535,20 +527,6 @@ class _CodeVerificationRegistrationState
       enableResend = false;
     });
   }
-
-  @override
-  dispose() {
-    timer.cancel();
-    super.dispose();
-  }
-
-  verifyNumberCorrect() {
-    if (formKey.currentState!.validate()) {
-      return true;
-    } else {
-      return false;
-    }
-  }
 }
 
 class NewPassRegistrationPage extends StatefulWidget {
@@ -565,6 +543,39 @@ class _NewPassRegistrationPageState extends State<NewPassRegistrationPage> {
   final formKey = GlobalKey<FormState>();
   String password = "";
   String rePassword = "";
+  bool buttonConfirm = false;
+  @override
+  void initState() {
+    super.initState();
+    _pass.addListener(() {
+      setState(() {
+        buttonConfirm = _pass.text.length >= 6;
+      });
+    });
+    _confirmPass.addListener(() {
+      setState(() {
+        buttonConfirm = _confirmPass.text.length >= 6;
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _pass.dispose();
+    _confirmPass.dispose();
+    super.dispose();
+  }
+
+  bool checkPassRegPageFields() {
+    buttonConfirm = _pass.text.length >= 6 &&
+            _confirmPass.text.length >= 6 &&
+            _pass.text.contains(_confirmPass.text) &&
+            _confirmPass.text.contains(_pass.text) == true
+        ? true
+        : false;
+    return buttonConfirm;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -601,7 +612,7 @@ class _NewPassRegistrationPageState extends State<NewPassRegistrationPage> {
                       ),
                     ),
                   ),
-                  Text(""),
+                  const Text(""),
                 ],
               ),
               Padding(
@@ -626,41 +637,48 @@ class _NewPassRegistrationPageState extends State<NewPassRegistrationPage> {
                   padding: const EdgeInsets.only(top: 25.0),
                   child: TextFormField(
                     controller: _pass,
+                    obscureText: !passwordVisibleTop,
                     textInputAction: TextInputAction.next,
-                    decoration: const InputDecoration(
-                      enabledBorder: OutlineInputBorder(
+                    decoration: InputDecoration(
+                      enabledBorder: const OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(15.0)),
                           borderSide:
                               BorderSide(color: enabledBorderLoginColor)),
-                      focusedBorder: OutlineInputBorder(
+                      focusedBorder: const OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(15.0)),
                           borderSide:
                               BorderSide(color: focusedBorderLoginColor)),
-                      errorBorder: OutlineInputBorder(
+                      errorBorder: const OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(15.0)),
                           borderSide:
                               BorderSide(color: errorBorderPasswordPage)),
-                      focusedErrorBorder: OutlineInputBorder(
+                      focusedErrorBorder: const OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(15.0)),
                           borderSide:
                               BorderSide(color: focusedBorderLoginColor)),
-                      labelStyle: TextStyle(color: labelTextLoginColor),
+                      suffixIcon: IconButton(
+                        icon: Icon(passwordVisibleTop
+                            ? Icons.visibility
+                            : Icons.visibility_off),
+                        color: passwordTopHideColor,
+                        onPressed: () {
+                          setState(
+                            () {
+                              passwordVisibleTop = !passwordVisibleTop;
+                              passwordTopHideColor =
+                                  passwordTopHideColor == Colors.grey
+                                      ? passwordTopUnHideColor
+                                      : Colors.grey;
+                            },
+                          );
+                        },
+                      ),
+                      labelStyle: const TextStyle(color: labelTextLoginColor),
                       floatingLabelStyle:
-                          TextStyle(color: floatingLoginLabelColor),
+                          const TextStyle(color: floatingLoginLabelColor),
                       labelText: 'Пароль',
                     ),
-                    onChanged: (val) {
-                      setState(() {
-                        password = val;
-                      });
-                    },
-                    validator: (val) {
-                      if (val!.length < 6) {
-                        return "Пароль должен состоять минимум из 6 символов";
-                      } else {
-                        return null;
-                      }
-                    },
+                    keyboardType: TextInputType.visiblePassword,
                   ),
                 ),
               ),
@@ -670,7 +688,7 @@ class _NewPassRegistrationPageState extends State<NewPassRegistrationPage> {
                   padding: const EdgeInsets.only(top: 20.0),
                   child: TextFormField(
                     controller: _confirmPass,
-                    obscureText: !passwordVisible,
+                    obscureText: !passwordVisibleBottom,
                     decoration: InputDecoration(
                       enabledBorder: const OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(15.0)),
@@ -689,17 +707,17 @@ class _NewPassRegistrationPageState extends State<NewPassRegistrationPage> {
                           borderSide:
                               BorderSide(color: focusedBorderLoginColor)),
                       suffixIcon: IconButton(
-                        icon: Icon(passwordVisible
+                        icon: Icon(passwordVisibleBottom
                             ? Icons.visibility
                             : Icons.visibility_off),
-                        color: passwordHideColor,
+                        color: passwordBottomHideColor,
                         onPressed: () {
                           setState(
                             () {
-                              passwordVisible = !passwordVisible;
-                              passwordHideColor =
-                                  passwordHideColor == Colors.grey
-                                      ? passwordUnHideColor
+                              passwordVisibleBottom = !passwordVisibleBottom;
+                              passwordBottomHideColor =
+                                  passwordBottomHideColor == Colors.grey
+                                      ? passwordBottomUnHideColor
                                       : Colors.grey;
                             },
                           );
@@ -714,70 +732,16 @@ class _NewPassRegistrationPageState extends State<NewPassRegistrationPage> {
                     ),
                     keyboardType: TextInputType.visiblePassword,
                     textInputAction: TextInputAction.done,
-                    onChanged: (val) {
-                      setState(() {
-                        rePassword = val;
-                      });
-                    },
-                    validator: (val) {
-                      if (val!.length < 6) {
-                        return "Пароль должен состоять минимум из 6 символов";
-                      }
-                      if (val != _pass.text) {
-                        return "Пароль не совпадает";
-                      } else {
-                        return null;
-                      }
-                    },
                   ),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 30.0),
-                child: ElevatedButton(
-                  style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all<Color>(authButtonColor),
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15.0),
-                      ),
-                    ),
-                  ),
-                  child: const SizedBox(
-                    width: 330.0,
-                    height: 50.0,
-                    child: Center(
-                      child: Text(
-                        'Подтвердить',
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ),
-                  onPressed: () {
-                    if (passwordCorrect()) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const HomePage()),
-                      );
-                    }
-                  },
-                ),
-              ),
+                  padding: const EdgeInsets.only(top: 30.0),
+                  child: ButtonRegConfirm(active: checkPassRegPageFields())),
             ],
           ),
         ),
       ),
     );
-  }
-
-  passwordCorrect() {
-    if (formKey.currentState!.validate()) {
-      return true;
-    } else {
-      return false;
-    }
   }
 }

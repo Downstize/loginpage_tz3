@@ -11,8 +11,25 @@ class PasswordAuthPage extends StatefulWidget {
 }
 
 class _PasswordAuthPageState extends State<PasswordAuthPage> {
+  final _inputController = TextEditingController();
   final formKey = GlobalKey<FormState>();
   String password = "";
+  bool buttonAuth = false;
+  @override
+  void initState() {
+    super.initState();
+    _inputController.addListener(() {
+      setState(() {
+        buttonAuth = _inputController.text.length>=6;
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _inputController.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,7 +62,7 @@ class _PasswordAuthPageState extends State<PasswordAuthPage> {
                     ),
                   ),
                 ),
-                Text(""),
+                const Text(""),
               ],
             ),
             const Padding(
@@ -72,6 +89,7 @@ class _PasswordAuthPageState extends State<PasswordAuthPage> {
               child: Padding(
                 padding: const EdgeInsets.only(top: 20.0),
                 child: TextFormField(
+                  controller: _inputController,
                   obscureText: !passwordVisible,
                   decoration: InputDecoration(
                     enabledBorder: const OutlineInputBorder(
@@ -112,13 +130,13 @@ class _PasswordAuthPageState extends State<PasswordAuthPage> {
                   ),
                   keyboardType: TextInputType.visiblePassword,
                   textInputAction: TextInputAction.done,
-                  validator: (val) {
-                    if (val!.length < 6) {
-                      return "Введите корректные данные";
-                    } else {
-                      return null;
-                    }
-                  },
+                  // validator: (val) {
+                  //   if (val!.length < 6) {
+                  //     return "Введите корректные данные";
+                  //   } else {
+                  //     return null;
+                  //   }
+                  // },
                   onChanged: (val) {
                     setState(() {
                       password = val;
@@ -130,14 +148,12 @@ class _PasswordAuthPageState extends State<PasswordAuthPage> {
             Padding(
               padding: const EdgeInsets.only(top: 20.0),
               child: ElevatedButton(
-                style: ButtonStyle(
-                  backgroundColor:
-                      MaterialStateProperty.all<Color>(authButtonColor),
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15.0),
-                    ),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: authButtonColor,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15.0),
                   ),
+                  disabledForegroundColor: Colors.grey,
                 ),
                 child: const SizedBox(
                   width: 330.0,
@@ -150,14 +166,14 @@ class _PasswordAuthPageState extends State<PasswordAuthPage> {
                     ),
                   ),
                 ),
-                onPressed: () {
+                onPressed: buttonAuth ? () {
                   if (passwordCorrect()) {
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => const HomePage()),
                     );
                   }
-                },
+                } : null,
               ),
             ),
           ],

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:loginpage_tz3/pages/authorization/auth.dart';
+import 'pages/authorization/auth.dart';
 
 const Color arrowBackColorForgetPasswordPage = Color.fromRGBO(27, 54, 93, 1);
 const Color labelTextColorForgetPasswordPage = Color.fromRGBO(27, 54, 93, 1);
@@ -27,6 +27,10 @@ const Color colorUnSelected = Colors.grey;
 const Color borderSide = Colors.grey;
 const Color registrationTextColor = Colors.black;
 const Color errorBorderPasswordPage = Colors.grey;
+Color passwordTopHideColor = Colors.grey;
+Color passwordBottomHideColor = Colors.grey;
+const Color passwordTopUnHideColor = Color.fromRGBO(27, 54, 93, 1);
+const Color passwordBottomUnHideColor = Color.fromRGBO(27, 54, 93, 1);
 
 void main(List<String> args) {
   runApp(const Auth());
