@@ -15,14 +15,26 @@ class AuthPage extends StatefulWidget {
 }
 
 class _AuthPageState extends State<AuthPage> {
-  final TextEditingController _inputController = TextEditingController();
+  final _inputController = TextEditingController();
   final formKey = GlobalKey<FormState>();
   String tabelNumber = "";
+  bool buttonAuth = false;
+  @override
+  void initState() {
+    super.initState();
+    _inputController.addListener(() {
+      setState(() {
+        buttonAuth = _inputController.text.length==7;
+      });
+    });
+  }
+
   @override
   void dispose() {
     _inputController.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,7 +70,7 @@ class _AuthPageState extends State<AuthPage> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only( top: 10.0, right: 180),
+              padding: const EdgeInsets.only(top: 10.0, right: 180),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: const [
@@ -104,33 +116,34 @@ class _AuthPageState extends State<AuthPage> {
                         TextStyle(color: floatingLoginLabelColor),
                     labelText: 'Табельный номер',
                   ),
+
                   onChanged: (val) {
-                      setState(() {
-                        tabelNumber = val;
-                      });
-                    },
-                    validator: (val) {
-                      if (val!.length < 7) {
-                        return "Табельный номер должен состоять из 7 символов";
-                      } else {
-                        return null;
-                      }
-                    },
+                    setState(() {
+                      tabelNumber = val;
+                    });
+                  },
+                  
                 ),
               ),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 20.0),
               child: ElevatedButton(
-                style: ButtonStyle(
-                  backgroundColor:
-                      MaterialStateProperty.all<Color>(authButtonColor),
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15.0),
-                    ),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: authButtonColor,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15.0),
                   ),
+                  disabledForegroundColor: Colors.grey,
                 ),
+                onPressed: buttonAuth ? () {
+                  if (numberCorrect()) {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const PasswordAuthPage()));
+                  } 
+                }:null,
                 child: const SizedBox(
                   width: 330.0,
                   height: 50.0,
@@ -142,15 +155,6 @@ class _AuthPageState extends State<AuthPage> {
                     ),
                   ),
                 ),
-                
-                onPressed: () {
-                  if (numberCorrect()) {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const PasswordAuthPage()));
-                  }
-                },
               ),
             ),
             Padding(
