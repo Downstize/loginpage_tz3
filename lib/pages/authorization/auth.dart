@@ -4,6 +4,9 @@ import 'package:loginpage_tz3/main.dart';
 import 'package:loginpage_tz3/pages/registration/registration.dart';
 import '../forgotPassword/forgotpassword.dart';
 import 'password.dart';
+import 'package:loginpage_tz3/Services/internet_checker.dart';
+import 'package:provider/provider.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 bool passwordVisible = false;
 
@@ -43,6 +46,11 @@ class _AuthPageState extends State<AuthPage> {
         child: Form(
           key: formKey,
           child: Column(children: <Widget>[
+            Visibility(
+              visible: Provider.of<InternetConnectionStatus>(context) ==
+                  InternetConnectionStatus.disconnected,
+              child: const InternetNotAvailable(),
+            ),
             Padding(
               padding: const EdgeInsets.only(top: 40.0),
               child: Center(
@@ -222,4 +230,6 @@ class _AuthPageState extends State<AuthPage> {
       return false;
     }
   }
+
+  
 }

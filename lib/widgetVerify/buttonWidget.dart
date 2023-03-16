@@ -5,6 +5,8 @@ import 'package:loginpage_tz3/pages/forgotPassword/forgotpassword.dart';
 import 'package:loginpage_tz3/pages/home/home.dart';
 import 'package:loginpage_tz3/pages/registration/registration.dart';
 
+import '../bd/isar_service.dart';
+
 class Buttonregistrate extends StatefulWidget {
   final bool active;
   const Buttonregistrate({
@@ -70,6 +72,7 @@ class ButtonRegConfirm extends StatefulWidget {
 
 class _ButtonRegConfirmState extends State<ButtonRegConfirm> {
   final formKey = GlobalKey<FormState>();
+  final i  = IsarService();
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -84,6 +87,7 @@ class _ButtonRegConfirmState extends State<ButtonRegConfirm> {
         ),
         onPressed: widget.active
             ? () {
+                i.addUserNick(value_tab, tabelNumber);
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const HomePage()),

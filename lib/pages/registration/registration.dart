@@ -1,11 +1,17 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:isar/isar.dart';
+import 'package:loginpage_tz3/bd/isar_service.dart';
+import 'package:loginpage_tz3/collections/user_collection.dart';
 import 'package:loginpage_tz3/main.dart';
 import 'package:loginpage_tz3/widgetVerify/buttonWidget.dart';
 
 bool passwordVisibleTop = false;
 bool passwordVisibleBottom = false;
+String value_tab = "";
+String tabelNumber = "";
 
 class RegistrationPage extends StatefulWidget {
   const RegistrationPage({super.key});
@@ -18,7 +24,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
   final _inputController = TextEditingController();
   bool buttonSend = false;
   final formKey = GlobalKey<FormState>();
-  String tabelNumber = "";
+  
   String emailAdd = "@edu.rut-miit.ru";
   @override
   void initState() {
@@ -38,6 +44,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
 
   @override
   Widget build(BuildContext context) {
+    final i = IsarService();
+    // i.isarConfig();
     return Scaffold(
       body: SingleChildScrollView(
         child: Form(
@@ -139,14 +147,39 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     disabledForegroundColor: Colors.grey,
                   ),
                   onPressed: buttonSend
-                      ? () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      const CodeVerificationRegistration()));
+                      ? () async {
+                          value_tab = tabelNumber;
+                          int checker = await i.findUsers(value_tab);
+                          log(checker.toString());
+                          if (checker == 1) {
+                            tabelNumber = tabelNumber + emailAdd;
+                            
+                            // ignore: use_build_context_synchronously
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const CodeVerificationRegistration()));
 
-                          tabelNumber = tabelNumber + emailAdd;
+                            checker = 0;
+                          } else if (checker == 0) {
+                            // ignore: use_build_context_synchronously
+                            showDialog<String>(
+                              context: context,
+                              builder: (BuildContext context) => AlertDialog(
+                                title: const Text('Ошибка'),
+                                content: const Text('Табельный номер уже зарегистрирован'),
+                                actions: <Widget>[
+                                  TextButton(
+                                    onPressed: () =>
+                                        Navigator.pop(context, 'OK'),
+                                    child: const Text('OK'),
+                                  ),
+                                ],
+                              ),
+                            );
+                          }
+                          
                         }
                       : null,
                   child: const SizedBox(
@@ -168,6 +201,39 @@ class _RegistrationPageState extends State<RegistrationPage> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class AlertError extends StatefulWidget {
+  const AlertError({super.key});
+
+  @override
+  State<AlertError> createState() => _AlertErrorState();
+}
+
+class _AlertErrorState extends State<AlertError> {
+  @override
+  Widget build(BuildContext context) {
+    return TextButton(
+      onPressed: () => showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('AlertDialog Title'),
+          content: const Text('AlertDialog description'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.pop(context, 'Cancel'),
+              child: const Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () => Navigator.pop(context, 'OK'),
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      ),
+      child: Text("kckc"),
     );
   }
 }

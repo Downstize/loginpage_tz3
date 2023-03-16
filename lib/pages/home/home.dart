@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:loginpage_tz3/main.dart';
+import 'package:loginpage_tz3/pages/home/pages/tasks/tasks.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -48,16 +49,16 @@ class _HomePageState extends State<HomePage> {
                 label: 'Главная',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.calendar_today),
+                icon: Icon(Icons.access_time),
                 label: 'Расписание',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.task),
-                label: 'Задания',
+                icon: Icon(Icons.format_list_bulleted),
+                label: 'Задачи',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.chat_bubble),
-                label: 'Чаты',
+                icon: Icon(Icons.school),
+                label: 'Аудитории',
               ),
               BottomNavigationBarItem(
                   icon: Icon(Icons.person), label: "Профиль")
@@ -83,12 +84,12 @@ class _HomePageState extends State<HomePage> {
           Container(
             color: colorTasks,
             alignment: Alignment.center,
-            child: const Text('There would be a Tasks Page here'),
+            child: TaskPage(),
           ),
           Container(
-            color: colorMessenger,
+            color: colorAudiences,
             alignment: Alignment.center,
-            child: const Text('There would be a Messenger Page here'),
+            child: const Text('There would be a Audiences Page here'),
           ),
           Container(
             color: colorProfile,
