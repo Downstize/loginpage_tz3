@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:loginpage_tz3/pages/home/home.dart';
 import 'pages/authorization/auth.dart';
 import 'package:provider/provider.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -35,6 +36,9 @@ Color passwordTopHideColor = Colors.grey;
 Color passwordBottomHideColor = Colors.grey;
 const Color passwordTopUnHideColor = Color.fromRGBO(27, 54, 93, 1);
 const Color passwordBottomUnHideColor = Color.fromRGBO(27, 54, 93, 1);
+const Color floatButtonColorTaskPage = Color.fromRGBO(27, 54, 93, 1);
+const Color iconsBackgroundColorOnTaskPage = Color.fromRGBO(27, 54, 93, 1);
+const Color containersColorOnTaskPage = Color.fromRGBO(162, 172, 171, 1);
 
 void main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -61,7 +65,7 @@ class Auth extends StatelessWidget {
       child: MaterialApp(
         theme: ThemeData(fontFamily: 'Navigo'),
         debugShowCheckedModeBanner: false,
-        home: const AuthPage(),
+        home: const HomePage()//AuthPage()
       ),
     );
   }

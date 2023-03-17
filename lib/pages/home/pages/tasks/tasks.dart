@@ -1,18 +1,17 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:loginpage_tz3/main.dart';
 
+bool passwordVisibleForTask = false;
+
 class TaskPage extends StatefulWidget {
+  const TaskPage({super.key});
+
   @override
   _TaskPageState createState() => _TaskPageState();
 }
 
 class _TaskPageState extends State<TaskPage> {
   late TextEditingController controller;
- 
 
   @override
   void initState() {
@@ -40,19 +39,19 @@ class _TaskPageState extends State<TaskPage> {
           if (name == null || name.isEmpty) return;
           setState(() => this.name = name);
         },
-        backgroundColor: Colors.blue.shade700,
+        backgroundColor: floatButtonColorTaskPage,
         child: const Icon(Icons.add),
       ),
-      body: SizedBox(
-        width: double.infinity,
-        child: Column(
-          children: [
+      body: SingleChildScrollView(
+        child: SizedBox(
+          width: double.infinity,
+          child: Column(children: [
             const SizedBox(
               height: 55,
             ),
             SizedBox(
               width: 380,
-              height: 35,
+              height: 40,
               child: TextFormField(
                 decoration: const InputDecoration(
                     enabledBorder: OutlineInputBorder(
@@ -70,7 +69,7 @@ class _TaskPageState extends State<TaskPage> {
                     labelStyle: TextStyle(color: Colors.grey),
                     floatingLabelStyle:
                         TextStyle(color: floatingLoginLabelColor),
-                        hintTextDirection: TextDirection.ltr,
+                    hintTextDirection: TextDirection.ltr,
                     labelText: 'Поиск',
                     prefixIcon: Align(
                       widthFactor: 1.0,
@@ -82,389 +81,404 @@ class _TaskPageState extends State<TaskPage> {
                     )),
               ),
             ),
-            GridView.count(
-              shrinkWrap: true,
-              primary: false,
-              padding: const EdgeInsets.only(top:30, left: 15, right: 15),
-              crossAxisSpacing: 20,
-              mainAxisSpacing: 10,
-              crossAxisCount: 2,
-             
+            const SizedBox(
+              height: 30,
+            ),
+            Stack(
               children: [
-                GestureDetector(
-                  onTap: () {
-                    // Navigator.of(context).push(MaterialPageRoute(
-                    //     builder: (context) => LocalTask()));
-                  },
+                Align(
+                  alignment: AlignmentDirectional.topEnd,
                   child: Container(
                     decoration: BoxDecoration(
-                      color: Color.fromARGB(45, 60, 60, 60),
-                      borderRadius: BorderRadius.all(Radius.circular(20)),
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.grey[350],
                     ),
-                    child: Column(
-                      children: [
-                        Container(
-                          margin: const EdgeInsets.all(15),
-                          child: Row(
+                    margin: const EdgeInsets.only(right: 15),
+                    width: 180,
+                    height: 85,
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                          top: 10, left: 10, right: 15),
+                      child: Column(
+                        children: [
+                          Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Container(
-                                width: 47,
-                                height: 47,
-                                decoration: BoxDecoration(
-                                  color: Colors.blue.shade700,
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(30)),
+                                width: 33,
+                                height: 33,
+                                decoration: const BoxDecoration(
+                                  color: iconsBackgroundColorOnTaskPage,
+                                  borderRadius: BorderRadius.all(
+                                      Radius.circular(30)),
                                 ),
-                                child: Icon(Icons.person,
-                                    color: Colors.white, size: 37),
+                                child: const Icon(Icons.event_note,
+                                    color: Colors.white, size: 25),
                               ),
-                              Expanded(child: Text('')),
+                              const Expanded(child: Text('')),
                               Text(
                                 countLocalTask,
-                                style: TextStyle(
+                                style: const TextStyle(
                                     color: Colors.black,
-                                    fontSize: 35,
-                                    fontWeight: FontWeight.w600),
+                                    fontSize: 25,
+                                    fontWeight: FontWeight.bold),
                               )
                             ],
                           ),
-                        ),
-                        Expanded(child: Text('')),
-                        Container(
-                            margin: const EdgeInsets.only(
-                                top: 30, bottom: 30, left: 10, right: 10),
-                            child: Text(
-                              'Сегодня',
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w600),
-                            ))
-                      ],
+                         
+                          Padding(
+                            padding: const EdgeInsets.only(top: 15),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: const [
+                                Text(
+                                  'Запланировано',
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      
                     ),
                   ),
                 ),
-                GestureDetector(
-                  onTap: () {
-                    // Navigator.of(context).push(MaterialPageRoute(
-                    //     builder: (context) => GroupTask()));
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Color.fromARGB(45, 60, 60, 60),
-                      borderRadius: BorderRadius.all(Radius.circular(20)),
-                    ),
-                    child: Column(
-                      children: [
-                        Container(
-                          margin: const EdgeInsets.all(15),
-                          child: Row(
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.grey[350],
+                  ),
+                  margin: const EdgeInsets.only(left: 15),
+                  width: 180,
+                  height: 85,
+                  child: Padding(
+                      padding: const EdgeInsets.only(
+                          top: 10, left: 10, right: 15),
+                      child: Column(
+                        children: [
+                          Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Container(
-                                width: 47,
-                                height: 47,
-                                decoration: BoxDecoration(
-                                  color: Colors.blue.shade700,
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(30)),
+                                width: 33,
+                                height: 33,
+                                decoration: const BoxDecoration(
+                                  color: iconsBackgroundColorOnTaskPage,
+                                  borderRadius:  BorderRadius.all(
+                                      Radius.circular(30)),
                                 ),
-                                child: Icon(Icons.group,
-                                    color: Colors.white, size: 37),
+                                child: const Icon(Icons.today,
+                                    color: Colors.white, size: 25),
                               ),
-                              Expanded(child: Text('')),
+                              const Expanded(child: Text('')),
                               Text(
-                                countGroupTask,
-                                style: TextStyle(
+                                countLocalTask,
+                                style: const TextStyle(
                                     color: Colors.black,
-                                    fontSize: 35,
-                                    fontWeight: FontWeight.w600),
+                                    fontSize: 25,
+                                    fontWeight: FontWeight.bold),
                               )
                             ],
                           ),
-                        ),
-                        Expanded(child: Text('')),
-                        Container(
-                          margin: const EdgeInsets.only(
-                              top: 30, bottom: 30, left: 10, right: 10),
-                          child: const Text(
-                            'Запланированные',
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600),
+                         
+                          Padding(
+                            padding: const EdgeInsets.only(top: 15),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: const [
+                                Text(
+                                  'Сегодня',
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
+                      
+                    ),
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            Stack(
+              children: [
+                Align(
+                  alignment: AlignmentDirectional.topEnd,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.grey[350],
+                    ),
+                    margin: const EdgeInsets.only(right: 15),
+                    width: 180,
+                    height: 85,
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                          top: 10, left: 10, right: 15),
+                      child: Column(
+                        children: [
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                width: 33,
+                                height: 33,
+                                decoration: const BoxDecoration(
+                                  color: iconsBackgroundColorOnTaskPage,
+                                  borderRadius: BorderRadius.all(
+                                      Radius.circular(30)),
+                                ),
+                                child: const Icon(Icons.flag,
+                                    color: Colors.white, size: 25),
+                              ),
+                              const Expanded(child: Text('')),
+                              Text(
+                                countLocalTask,
+                                style: const TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 25,
+                                    fontWeight: FontWeight.bold),
+                              )
+                            ],
+                          ),
+                         
+                          Padding(
+                            padding: const EdgeInsets.only(top: 15),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: const [
+                                Text(
+                                  'С флажком',
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      
+                    ),
+                  ),
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.grey[350],
+                  ),
+                  margin: const EdgeInsets.only(left: 15),
+                  width: 180,
+                  height: 85,
+                  child: Padding(
+                      padding: const EdgeInsets.only(
+                          top: 10, left: 10, right: 15),
+                      child: Column(
+                        children: [
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                width: 33,
+                                height: 33,
+                                decoration: const BoxDecoration(
+                                  color: iconsBackgroundColorOnTaskPage,
+                                  borderRadius: BorderRadius.all(
+                                      Radius.circular(30)),
+                                ),
+                                child: const Icon(Icons.all_inbox,
+                                    color: Colors.white, size: 25),
+                              ),
+                              const Expanded(child: Text('')),
+                              Text(
+                                countLocalTask,
+                                style: const TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 25,
+                                    fontWeight: FontWeight.bold),
+                              )
+                            ],
+                          ),
+                         
+                          Padding(
+                            padding: const EdgeInsets.only(top: 15),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: const [
+                                Text(
+                                  'Все',
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      
+                    ),
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            Stack(
+              children: [
+                Align(
+                  alignment: AlignmentDirectional.topStart,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.grey[350],
+                    ),
+                    margin: const EdgeInsets.only(left: 15),
+                    width: 180,
+                    height: 85,
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                          top: 10, left: 10, right: 15),
+                      child: Column(
+                        children: [
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                width: 33,
+                                height: 33,
+                                decoration: const BoxDecoration(
+                                  color: iconsBackgroundColorOnTaskPage,
+                                  borderRadius: BorderRadius.all(
+                                      Radius.circular(30)),
+                                ),
+                                child: const Icon(Icons.done,
+                                    color: Colors.white, size: 25),
+                              ),
+                              const Expanded(child: Text('')),
+                              Text(
+                                countLocalTask,
+                                style: const TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 25,
+                                    fontWeight: FontWeight.bold),
+                              )
+                            ],
+                          ),
+                         
+                          Padding(
+                            padding: const EdgeInsets.only(top: 15),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: const [
+                                Text(
+                                  'Завершено',
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      
                     ),
                   ),
                 ),
               ],
             ),
-            GridView.count(
-              shrinkWrap: true,
-              primary: false,
-              padding: const EdgeInsets.only(top:15, left: 15, right: 15),
-              crossAxisSpacing: 20,
-              mainAxisSpacing: 10,
-              crossAxisCount: 2,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    // Navigator.of(context).push(MaterialPageRoute(
-                    //     builder: (context) => LocalTask()));
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Color.fromARGB(45, 60, 60, 60),
-                      borderRadius: BorderRadius.all(Radius.circular(20)),
-                    ),
-                    child: Column(
-                      children: [
-                        Container(
-                          margin: const EdgeInsets.all(15),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                width: 47,
-                                height: 47,
-                                decoration: BoxDecoration(
-                                  color: Colors.blue.shade700,
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(30)),
-                                ),
-                                child: Icon(Icons.person,
-                                    color: Colors.white, size: 37),
-                              ),
-                              Expanded(child: Text('')),
-                              Text(
-                                countLocalTask,
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 35,
-                                    fontWeight: FontWeight.w600),
-                              )
-                            ],
-                          ),
-                        ),
-                        Expanded(child: Text('')),
-                        Container(
-                            margin: const EdgeInsets.only(
-                                top: 30, bottom: 30, left: 10, right: 10),
-                            child: Text(
-                              'Все',
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w600),
-                            ))
-                      ],
-                    ),
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    // Navigator.of(context).push(MaterialPageRoute(
-                    //     builder: (context) => GroupTask()));
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Color.fromARGB(45, 60, 60, 60),
-                      borderRadius: BorderRadius.all(Radius.circular(20)),
-                    ),
-                    child: Column(
-                      children: [
-                        Container(
-                          margin: const EdgeInsets.all(15),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                width: 47,
-                                height: 47,
-                                decoration: BoxDecoration(
-                                  color: Colors.blue.shade700,
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(30)),
-                                ),
-                                child: Icon(Icons.group,
-                                    color: Colors.white, size: 37),
-                              ),
-                              Expanded(child: Text('')),
-                              Text(
-                                countGroupTask,
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 35,
-                                    fontWeight: FontWeight.w600),
-                              )
-                            ],
-                          ),
-                        ),
-                        Expanded(child: Text('')),
-                        Container(
-                          margin: const EdgeInsets.only(
-                              top: 30, bottom: 30, left: 10, right: 10),
-                          child: Text(
-                            'С флагом',
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 20,
-                                fontWeight: FontWeight.w600),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
+            Padding(
+              padding: const EdgeInsets.only(top: 15, left: 25),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: const [
+                Text('Мои списки',
+                    style:
+                        TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
+              ]),
             ),
-            GridView.count(
-              shrinkWrap: true,
-              primary: false,
-              padding: const EdgeInsets.only(top:15, left: 15, right: 15),
-              crossAxisSpacing: 20,
-              mainAxisSpacing: 10,
-              crossAxisCount: 2,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    // Navigator.of(context).push(MaterialPageRoute(
-                    //     builder: (context) => LocalTask()));
-                  },
-                  child: Container(
-                    
-                    decoration: BoxDecoration(
-                      color: Color.fromARGB(45, 60, 60, 60),
-                      borderRadius: BorderRadius.all(Radius.circular(20)),
-                    ),
-                    child: Column(
-                      children: [
-                        Container(
-                          margin: const EdgeInsets.all(15),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                width: 47,
-                                height: 47,
-                                decoration: BoxDecoration(
-                                  color: Colors.blue.shade700,
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(30)),
-                                ),
-                                child: Icon(Icons.person,
-                                    color: Colors.white, size: 37),
-                              ),
-                              Expanded(child: Text('')),
-                              Text(
-                                countLocalTask,
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 35,
-                                    fontWeight: FontWeight.w600),
-                              )
-                            ],
-                          ),
-                        ),
-                        Expanded(child: Text('')),
-                        Container(
-                            margin: const EdgeInsets.only(
-                                top: 30, bottom: 30, left: 10, right: 10),
-                            child: Text(
-                              'Выполненные',
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w600),
-                            ))
-                      ],
-                    ),
-                  ),
-                ),
-              ]
-            ),
-            // GestureDetector(
-            //   onTap: () {
-            //     // Navigator.of(context).push(MaterialPageRoute(
-            //     //     builder: (context) => DoneTask()));
-            //   },
-            //   child: Padding(
-            //     padding: const EdgeInsets.symmetric(horizontal: 14.0),
-            //     child: Row(
-            //       children: <Widget>[
-            //         Expanded(
-            //           child: Card(
-            //             color: Colors.white54,
-            //             shape: RoundedRectangleBorder(
-            //                 borderRadius: BorderRadius.circular(20.0)),
-            //             child: Padding(
-            //               padding: const EdgeInsets.all(15.0),
-            //               child: Column(
-            //                 crossAxisAlignment: CrossAxisAlignment.start,
-            //                 children: <Widget>[
-            //                   Row(
-            //                     mainAxisAlignment:
-            //                         MainAxisAlignment.spaceBetween,
-            //                     children: <Widget>[
-            //                       Container(
-            //                         width: 47,
-            //                         height: 47,
-            //                         decoration: BoxDecoration(
-            //                           color: Colors.blue.shade700,
-            //                           borderRadius:
-            //                               BorderRadius.all(Radius.circular(30)),
-            //                         ),
-            //                         child: Icon(Icons.done,
-            //                             color: Colors.white, size: 37),
-            //                       ),
-            //                       Text(
-            //                         countAllDoneTask,
-            //                         style: TextStyle(
-            //                             color: Colors.black,
-            //                             fontSize: 35,
-            //                             fontWeight: FontWeight.w600),
-            //                       )
-            //                     ],
-            //                   ),
-            //                   SizedBox(height: 15),
-            //                   Padding(
-            //                     padding: const EdgeInsets.only(top: 12.0),
-            //                     child: Text(
-            //                       'Выполненные',
-            //                       style: TextStyle(
-            //                           color: Colors.black,
-            //                           fontSize: 20,
-            //                           fontWeight: FontWeight.w600),
-            //                     ),
-            //                   )
-            //                 ],
-            //               ),
-            //             ),
-            //           ),
-            //         ),
-            //       ],
-            //     ),
-            //   ),
-            // ),
+            const SizedBox(height: 5),
             Container(
-              child: Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Row(
-                  children: const  [
-                    Text('Мой список',
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.w600)),
-                    Expanded(child: Text('')),
-                    Icon(Icons.expand_more)
-                  ],
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.grey[350],
+                  ),
+                  
+                  width: 380,
+                  height: 50,
+                  child: Padding(
+                      padding: const EdgeInsets.only(
+                          top: 9, left: 10, right: 7),
+                      child: Column(
+                        children: [
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                width: 33,
+                                height: 33,
+                                decoration: const BoxDecoration(
+                                  color: iconsBackgroundColorOnTaskPage,
+                                  borderRadius: BorderRadius.all(
+                                      Radius.circular(30)),
+                                ),
+                                child: const Icon(Icons.list,
+                                    color: Colors.white, size: 25),
+                              ),
+                              Padding(
+                            padding: const EdgeInsets.only(left: 15, top: 8),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: const [
+                                Text(
+                                  'Напоминания',
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                              ],
+                            ),
+                          ),
+                              const Expanded(child: Text('')),
+                              Padding(
+                                padding: const EdgeInsets.only(top:9),
+                                child: Text(
+                                  countLocalTask,
+                                  style: const TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                              ),
+                             const Padding(
+                               padding:  EdgeInsets.only( top: 5),
+                                child: Icon(Icons.keyboard_arrow_right, size: 25,),
+                              )
+                            ],
+                          ),
+                         
+                         
+                        ],
+                      ),
+                      
+                    ),
                 ),
-              ),
-            ),
-            //Expanded(child: TaskView()),
-          ],
+          ]),
         ),
       ),
     );
@@ -473,26 +487,27 @@ class _TaskPageState extends State<TaskPage> {
   Future<String?> openDialog() => showDialog<String>(
         context: context,
         builder: ((context) => AlertDialog(
-              title: Text('Добавление задания'),
+              title: const Text('Добавление задания'),
               content: TextField(
                 autofocus: true,
-                decoration: InputDecoration(hintText: '[Предмет]: [Задание]'),
+                decoration:
+                    const InputDecoration(hintText: '[Предмет]: [Задание]'),
                 controller: controller,
               ),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20.0)),
               actions: [
                 Card(
-                  color: Colors.blue.shade700,
+                  color: const Color.fromRGBO(27, 54, 93, 1),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0)),
                   child: TextButton(
-                    child: Text(
+                    onPressed: submit,
+                    child: const Text(
                       'Добавить',
                       style: TextStyle(color: Colors.white),
                     ),
-                    onPressed: submit,
                   ),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20.0)),
                 )
               ],
             )),

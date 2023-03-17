@@ -12,6 +12,7 @@ bool passwordVisibleTop = false;
 bool passwordVisibleBottom = false;
 String value_tab = "";
 String tabelNumber = "";
+String rePassword = "";
 
 class RegistrationPage extends StatefulWidget {
   const RegistrationPage({super.key});
@@ -24,7 +25,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
   final _inputController = TextEditingController();
   bool buttonSend = false;
   final formKey = GlobalKey<FormState>();
-  
+
   String emailAdd = "@edu.rut-miit.ru";
   @override
   void initState() {
@@ -45,7 +46,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
   @override
   Widget build(BuildContext context) {
     final i = IsarService();
-    // i.isarConfig();
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Form(
@@ -130,7 +131,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     ),
                     onChanged: (val) {
                       setState(() {
-                        tabelNumber = val;
+                        value_tab = val;
+                        val = "";
                       });
                     },
                   ),
@@ -148,12 +150,11 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   ),
                   onPressed: buttonSend
                       ? () async {
-                          value_tab = tabelNumber;
                           int checker = await i.findUsers(value_tab);
                           log(checker.toString());
                           if (checker == 1) {
                             tabelNumber = tabelNumber + emailAdd;
-                            
+
                             // ignore: use_build_context_synchronously
                             Navigator.push(
                                 context,
@@ -168,7 +169,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
                               context: context,
                               builder: (BuildContext context) => AlertDialog(
                                 title: const Text('Ошибка'),
-                                content: const Text('Табельный номер уже зарегистрирован'),
+                                content: const Text(
+                                    'Табельный номер уже зарегистрирован'),
                                 actions: <Widget>[
                                   TextButton(
                                     onPressed: () =>
@@ -179,7 +181,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
                               ),
                             );
                           }
-                          
                         }
                       : null,
                   child: const SizedBox(
@@ -201,39 +202,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
           ),
         ),
       ),
-    );
-  }
-}
-
-class AlertError extends StatefulWidget {
-  const AlertError({super.key});
-
-  @override
-  State<AlertError> createState() => _AlertErrorState();
-}
-
-class _AlertErrorState extends State<AlertError> {
-  @override
-  Widget build(BuildContext context) {
-    return TextButton(
-      onPressed: () => showDialog<String>(
-        context: context,
-        builder: (BuildContext context) => AlertDialog(
-          title: const Text('AlertDialog Title'),
-          content: const Text('AlertDialog description'),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () => Navigator.pop(context, 'Cancel'),
-              child: const Text('Cancel'),
-            ),
-            TextButton(
-              onPressed: () => Navigator.pop(context, 'OK'),
-              child: const Text('OK'),
-            ),
-          ],
-        ),
-      ),
-      child: Text("kckc"),
     );
   }
 }
@@ -319,6 +287,8 @@ class _CodeVerificationRegistrationState
                             MaterialPageRoute(
                                 builder: (context) =>
                                     const RegistrationPage()));
+                        // value_tab = "";
+                        tabelNumber = "";
                       },
                     ),
                   ),
@@ -608,7 +578,6 @@ class _NewPassRegistrationPageState extends State<NewPassRegistrationPage> {
   final TextEditingController _confirmPass = TextEditingController();
   final formKey = GlobalKey<FormState>();
   String password = "";
-  String rePassword = "";
   bool buttonConfirm = false;
   @override
   void initState() {
@@ -744,6 +713,12 @@ class _NewPassRegistrationPageState extends State<NewPassRegistrationPage> {
                           const TextStyle(color: floatingLoginLabelColor),
                       labelText: 'Пароль',
                     ),
+                    onChanged: (val) {
+                      setState(() {
+                        password = val;
+                        val = "";
+                      });
+                    },
                     keyboardType: TextInputType.visiblePassword,
                   ),
                 ),
@@ -796,6 +771,12 @@ class _NewPassRegistrationPageState extends State<NewPassRegistrationPage> {
                       ),
                       labelText: 'Повторите пароль',
                     ),
+                    onChanged: (val) {
+                      setState(() {
+                        rePassword = val;
+                        val = "";
+                      });
+                    },
                     keyboardType: TextInputType.visiblePassword,
                     textInputAction: TextInputAction.done,
                   ),

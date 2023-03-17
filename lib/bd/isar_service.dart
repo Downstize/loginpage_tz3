@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:loginpage_tz3/collections/schedule_collection.dart';
 import 'package:loginpage_tz3/collections/todo_collection.dart';
 import 'package:isar/isar.dart';
+import 'package:loginpage_tz3/pages/registration/registration.dart';
 import 'package:path_provider/path_provider.dart';
 
 import '../collections/user_collection.dart';
@@ -95,7 +96,7 @@ Future<int> findUsers(String email) async {
     return Future.value(Isar.getInstance());
   }
 
-  Future<void> addUserNick(String value_tab, String email) async {
+  Future<void> addUser(String value_tab, String email, String rePassword) async {
   final isar = await db;
   final newUser = UserEntity()
     ..name = "Java GOD"
@@ -103,9 +104,11 @@ Future<int> findUsers(String email) async {
     ..institut = "ИУЦТ"
     ..group = "УВП-211"
     ..email = email
-    ..pass = ""
+    ..pass = rePassword
     ..tabNumber = value_tab;
     //tabNumber => string
+    value_tab = "";
+    tabelNumber = "";
   await isar.writeTxn(() async {
     await isar.userEntitys.put(newUser);
   });

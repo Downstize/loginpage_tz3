@@ -87,7 +87,9 @@ class _ButtonRegConfirmState extends State<ButtonRegConfirm> {
         ),
         onPressed: widget.active
             ? () {
-                i.addUserNick(value_tab, tabelNumber);
+                i.addUser(value_tab, tabelNumber, rePassword);
+                tabelNumber = "";
+                value_tab = "";
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const HomePage()),

@@ -10,7 +10,7 @@ class InternetNotAvailable extends StatelessWidget {
       color: Colors.red,
       child:const Center(
         child:  Text(
-          'No Internet Connection!!!',
+          'Нет подключения к сети',
           style: TextStyle(color: Colors.white, fontSize: 12),
         ),
       ),
