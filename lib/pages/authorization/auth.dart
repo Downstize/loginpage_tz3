@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:loginpage_tz3/bd/isar_service.dart';
 import 'package:loginpage_tz3/main.dart';
 import 'package:loginpage_tz3/pages/registration/registration.dart';
 import '../forgotPassword/forgotpassword.dart';
@@ -9,6 +12,7 @@ import 'package:provider/provider.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 bool passwordVisible = false;
+String value_tab2 = "";
 
 class AuthPage extends StatefulWidget {
   const AuthPage({super.key});
@@ -27,7 +31,7 @@ class _AuthPageState extends State<AuthPage> {
     super.initState();
     _inputController.addListener(() {
       setState(() {
-        buttonAuth = _inputController.text.length==7;
+        buttonAuth = _inputController.text.length == 7;
       });
     });
   }
@@ -40,6 +44,7 @@ class _AuthPageState extends State<AuthPage> {
 
   @override
   Widget build(BuildContext context) {
+    final i = IsarService();
     return Scaffold(
       backgroundColor: backgroundColor,
       body: SingleChildScrollView(
@@ -124,13 +129,12 @@ class _AuthPageState extends State<AuthPage> {
                         TextStyle(color: floatingLoginLabelColor),
                     labelText: 'Табельный номер',
                   ),
-
                   onChanged: (val) {
                     setState(() {
-                      tabelNumber = val;
+                      value_tab2 = val;
+                      val = "";
                     });
                   },
-                  
                 ),
               ),
             ),
@@ -144,14 +148,52 @@ class _AuthPageState extends State<AuthPage> {
                   ),
                   disabledForegroundColor: Colors.grey,
                 ),
-                onPressed: buttonAuth ? () {
-                  if (numberCorrect()) {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const PasswordAuthPage()));
-                  } 
-                }:null,
+                onPressed: buttonAuth
+                    ? () async {
+                        int checker2 = await i.findUsers(value_tab2);
+                        log(checker2.toString());
+                        if (checker2 == 0) {
+                          if (numberCorrect()) {
+                            // ignore: use_build_context_synchronously
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const PasswordAuthPage()));
+                          }
+                        } else if (checker2 == 1) {
+                          // ignore: use_build_context_synchronously
+                          showDialog<String>(
+                              context: context,
+                              builder: (BuildContext context) => AlertDialog(
+                                      title: const Text('Ошибка'),
+                                      content: const Text(
+                                          'Табельный номер не зарегистрирован'),
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(20.0)),
+                                      actions: [
+                                        Card(
+                                          color: const Color.fromRGBO(
+                                              27, 54, 93, 1),
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(20.0)),
+                                          child: TextButton(
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                            },
+                                            child: const Text(
+                                              'Ок',
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                            ),
+                                          ),
+                                        )
+                                      ]));
+                        }
+                      }
+                    : null,
                 child: const SizedBox(
                   width: 330.0,
                   height: 50.0,
@@ -230,6 +272,4 @@ class _AuthPageState extends State<AuthPage> {
       return false;
     }
   }
-
-  
 }

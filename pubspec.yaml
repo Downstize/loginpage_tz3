@@ -45,6 +45,8 @@ dependencies:
   isar_generator: ^3.0.5
   build_runner: ^2.3.3
   internet_connection_checker: ^1.0.0+1
+  responsive_framework: ^0.2.0
+  shared_preferences: ^2.1.0
   
 
 dev_dependencies: 
@@ -79,7 +81,7 @@ flutter:
   assets:
     - assets/image/logo.png
     - assets/image/icon_app.png
-
+    - assets/image/grey.jpg
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.

@@ -48,38 +48,31 @@ class _RegistrationPageState extends State<RegistrationPage> {
     final i = IsarService();
 
     return Scaffold(
+      appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          title: const Text(
+            'Авторизация',
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: labelTextColorForgetPasswordPage,
+            ),
+          ),
+          centerTitle: true,
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            color: arrowBackColorForgetPasswordPage,
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+        ),
       body: SingleChildScrollView(
         child: Form(
           key: formKey,
           child: Column(
             children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.only(top: 50.0, left: 20),
-                    child: IconButton(
-                      icon: const Icon(Icons.arrow_back),
-                      color: arrowBackColorForgetPasswordPage,
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                    ),
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.only(top: 50.0, right: 50),
-                    child: Text(
-                      'Регистрация',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: labelTextColorForgetPasswordPage,
-                      ),
-                    ),
-                  ),
-                  const Text(""),
-                ],
-              ),
               Padding(
                 padding: const EdgeInsets.only(top: 80.0),
                 child: Row(
@@ -153,7 +146,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                           int checker = await i.findUsers(value_tab);
                           log(checker.toString());
                           if (checker == 1) {
-                            tabelNumber = tabelNumber + emailAdd;
+                            tabelNumber = value_tab + emailAdd;
 
                             // ignore: use_build_context_synchronously
                             Navigator.push(
@@ -268,44 +261,31 @@ class _CodeVerificationRegistrationState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          title: const Text(
+            'Верификация',
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: labelTextColorForgetPasswordPage,
+            ),
+          ),
+          centerTitle: true,
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            color: arrowBackColorForgetPasswordPage,
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+        ),
       body: SingleChildScrollView(
         child: Form(
           key: formKey,
           child: Column(
             children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.only(top: 50.0, left: 20.0),
-                    child: IconButton(
-                      icon: const Icon(Icons.arrow_back),
-                      color: arrowBackColorForgetPasswordPage,
-                      onPressed: () {
-                        Navigator.pop(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    const RegistrationPage()));
-                        // value_tab = "";
-                        tabelNumber = "";
-                      },
-                    ),
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.only(top: 50.0, right: 60),
-                    child: Text(
-                      'Верификация',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: labelTextColorForgetPasswordPage,
-                      ),
-                    ),
-                  ),
-                  const Text(""),
-                ],
-              ),
               Padding(
                 padding: const EdgeInsets.only(top: 80.0),
                 child: Row(
@@ -614,42 +594,31 @@ class _NewPassRegistrationPageState extends State<NewPassRegistrationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          title: const Text(
+            'Регистрация',
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: labelTextColorForgetPasswordPage,
+            ),
+          ),
+          centerTitle: true,
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            color: arrowBackColorForgetPasswordPage,
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+        ),
       body: SingleChildScrollView(
         child: Form(
           key: formKey,
           child: Column(
             children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.only(top: 50.0, left: 20.0),
-                    child: IconButton(
-                      icon: const Icon(Icons.arrow_back),
-                      color: arrowBackColorForgetPasswordPage,
-                      onPressed: () {
-                        Navigator.pop(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    const RegistrationPage()));
-                      },
-                    ),
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.only(top: 50.0, right: 70),
-                    child: Text(
-                      'Регистрация',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: labelTextColorForgetPasswordPage,
-                      ),
-                    ),
-                  ),
-                  const Text(""),
-                ],
-              ),
               Padding(
                 padding: const EdgeInsets.only(top: 110.0),
                 child: Row(

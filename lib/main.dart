@@ -5,6 +5,7 @@ import 'pages/authorization/auth.dart';
 import 'package:provider/provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:loginpage_tz3/bd/isar_service.dart';
+import 'package:responsive_framework/responsive_framework.dart';
 
 const Color arrowBackColorForgetPasswordPage = Color.fromRGBO(27, 54, 93, 1);
 const Color labelTextColorForgetPasswordPage = Color.fromRGBO(27, 54, 93, 1);
@@ -38,7 +39,10 @@ const Color passwordTopUnHideColor = Color.fromRGBO(27, 54, 93, 1);
 const Color passwordBottomUnHideColor = Color.fromRGBO(27, 54, 93, 1);
 const Color floatButtonColorTaskPage = Color.fromRGBO(27, 54, 93, 1);
 const Color iconsBackgroundColorOnTaskPage = Color.fromRGBO(27, 54, 93, 1);
-const Color containersColorOnTaskPage = Color.fromRGBO(162, 172, 171, 1);
+const Color profileBackground = Color.fromRGBO(27, 54, 93, 1);
+
+
+const Color containersColorOnTaskPage = Color.fromRGBO(27, 54, 93, 1);
 
 void main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -62,11 +66,27 @@ class Auth extends StatelessWidget {
       create: (_) {
         return InternetConnectionChecker().onStatusChange;
       },
+      
       child: MaterialApp(
-        theme: ThemeData(fontFamily: 'Navigo'),
-        debugShowCheckedModeBanner: false,
-        home: const HomePage()//AuthPage()
-      ),
+        darkTheme: ThemeData.dark(),
+        
+          builder: (context, child) => ResponsiveWrapper.builder(
+          BouncingScrollWrapper.builder(context, child!),
+          maxWidth: 1200,
+          minWidth: 450,
+          defaultScale: true,
+          breakpoints: [
+            const ResponsiveBreakpoint.resize(450, name: MOBILE),
+            const ResponsiveBreakpoint.autoScale(800, name: TABLET),
+            const ResponsiveBreakpoint.autoScale(1000, name: TABLET),
+            const ResponsiveBreakpoint.resize(1200, name: DESKTOP),
+            const ResponsiveBreakpoint.autoScale(2460, name: "4K"),
+          ],
+              ),
+          theme: ThemeData(fontFamily: 'Navigo'),
+          debugShowCheckedModeBanner: false,
+          home: const HomePage() //AuthPage()
+          ),
     );
   }
 }

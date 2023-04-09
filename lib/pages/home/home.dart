@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:loginpage_tz3/main.dart';
+import 'package:loginpage_tz3/pages/home/pages/profile/profile.dart';
 import 'package:loginpage_tz3/pages/home/pages/tasks/tasks.dart';
 
 class HomePage extends StatefulWidget {
@@ -94,7 +95,7 @@ class _HomePageState extends State<HomePage> {
           Container(
             color: colorProfile,
             alignment: Alignment.center,
-            child: const Text('There would be a Profile Page here'),
+            child: ProfilePage(),
           ),
         ][currentPageIndex],
       ),

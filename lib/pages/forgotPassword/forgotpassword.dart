@@ -41,38 +41,31 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          title: const Text(
+            'Забыли пароль?',
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: labelTextColorForgetPasswordPage,
+            ),
+          ),
+          centerTitle: true,
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            color: arrowBackColorForgetPasswordPage,
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+        ),
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Form(
           key: formKey,
           child: Column(children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(top: 50.0, left: 20.0),
-                  child: IconButton(
-                    icon: const Icon(Icons.arrow_back),
-                    color: arrowBackColorForgetPasswordPage,
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                  ),
-                ),
-                const Padding(
-                  padding: EdgeInsets.only(top: 50.0, right: 50),
-                  child: Text(
-                    'Забыли пароль?',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: labelTextColorForgetPasswordPage,
-                    ),
-                  ),
-                ),
-                Text(""),
-              ],
-            ),
             Padding(
               padding: const EdgeInsets.only(top: 80.0),
               child: Row(
@@ -231,40 +224,30 @@ class _CodeVerificationForgotPassState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          title: const Text(
+            'Верификация',
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: labelTextColorForgetPasswordPage,
+            ),
+          ),
+          centerTitle: true,
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            color: arrowBackColorForgetPasswordPage,
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+        ),
       body: SingleChildScrollView(
         child: Form(
           key: formKey,
           child: Column(children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(top: 50.0, left: 20.0),
-                  child: IconButton(
-                    icon: const Icon(Icons.arrow_back),
-                    color: arrowBackColorForgetPasswordPage,
-                    onPressed: () {
-                      Navigator.pop(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const ForgotPassword()));
-                    },
-                  ),
-                ),
-                const Padding(
-                  padding: EdgeInsets.only(top: 50.0, right: 60.0),
-                  child: Text(
-                    'Верификация',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: labelTextColorForgetPasswordPage,
-                    ),
-                  ),
-                ),
-                const Text(""),
-              ],
-            ),
             Padding(
               padding: const EdgeInsets.only(top: 80.0),
               child: Row(
@@ -553,41 +536,31 @@ class _NewPassForgotPasswordPageState extends State<NewPassForgotPasswordPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          title: const Text(
+            'Новый пароль',
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: labelTextColorForgetPasswordPage,
+            ),
+          ),
+          centerTitle: true,
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            color: arrowBackColorForgetPasswordPage,
+            onPressed: () {
+             Navigator.pop(context);
+            },
+          ),
+        ),
       body: SingleChildScrollView(
         child: Form(
           key: formKey,
           child: Column(
             children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.only(top: 50.0, left: 20.0),
-                    child: IconButton(
-                      icon: const Icon(Icons.arrow_back),
-                      color: arrowBackColorForgetPasswordPage,
-                      onPressed: () {
-                        Navigator.pop(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const ForgotPassword()));
-                      },
-                    ),
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.only(top: 50.0, right: 60.0),
-                    child: Text(
-                      'Новый пароль',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: labelTextColorForgetPasswordPage,
-                      ),
-                    ),
-                  ),
-                  const Text(""),
-                ],
-              ),
               Padding(
                 padding: const EdgeInsets.only(top: 110.0),
                 child: Row(

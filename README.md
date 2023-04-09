@@ -1,6 +1,6 @@
-# loginpage_tz3
+# RUT 
 
-A new Flutter project.
+Application for university (IMDT)
 
 ## Getting Started
 
