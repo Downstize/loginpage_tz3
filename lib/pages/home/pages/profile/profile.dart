@@ -145,7 +145,7 @@ class _ProfilePageState extends State<ProfilePage> {
       centerTitle: true,
       title: Text(
         "Профиль",
-        style: TextStyle(fontSize: 24),
+        style: TextStyle(fontSize: 24, color: Colors.white),
       ),
     );
   }

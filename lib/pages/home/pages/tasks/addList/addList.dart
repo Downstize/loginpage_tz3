@@ -9,6 +9,7 @@ class AddList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        SizedBox(height: 5),
         Container(
           width: MediaQuery.of(context).size.width / 1.159,
           padding: const EdgeInsets.only(top: 5, bottom: 5),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:loginpage_tz3/bd/isar_service.dart';
+import 'package:loginpage_tz3/bd/hive_service.dart';
 import 'auth.dart';
 import 'package:loginpage_tz3/main.dart';
 import '../home/home.dart';
@@ -34,7 +34,7 @@ class _PasswordAuthPageState extends State<PasswordAuthPage> {
 
   @override
   Widget build(BuildContext context) {
-    final i = IsarService();
+    final h = HiveService();
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.transparent,
@@ -174,7 +174,7 @@ class _PasswordAuthPageState extends State<PasswordAuthPage> {
                     onPressed: buttonAuth
                         ? () async {
                             int checker3 =
-                                await i.findUserPass(value_tab2, password);
+                                await h.findUserPass(value_tab2, password);
                             if (checker3 == 1) {
                               if (passwordCorrect()) {
                                 Navigator.push(

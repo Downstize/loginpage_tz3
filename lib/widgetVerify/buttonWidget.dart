@@ -5,7 +5,7 @@ import 'package:loginpage_tz3/pages/forgotPassword/forgotpassword.dart';
 import 'package:loginpage_tz3/pages/home/home.dart';
 import 'package:loginpage_tz3/pages/registration/registration.dart';
 
-import '../bd/isar_service.dart';
+import '../bd/hive_service.dart';
 
 class Buttonregistrate extends StatefulWidget {
   final bool active;
@@ -72,7 +72,7 @@ class ButtonRegConfirm extends StatefulWidget {
 
 class _ButtonRegConfirmState extends State<ButtonRegConfirm> {
   final formKey = GlobalKey<FormState>();
-  final i  = IsarService();
+  final h  = HiveService();
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -87,7 +87,7 @@ class _ButtonRegConfirmState extends State<ButtonRegConfirm> {
         ),
         onPressed: widget.active
             ? () {
-                i.addUser(value_tab, tabelNumber, rePassword);
+                h.addUser(value_tab, tabelNumber, rePassword);
                 tabelNumber = "";
                 value_tab = "";
                 Navigator.push(

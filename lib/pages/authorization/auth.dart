@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:loginpage_tz3/bd/isar_service.dart';
+import 'package:loginpage_tz3/bd/hive_service.dart';
 import 'package:loginpage_tz3/main.dart';
 import 'package:loginpage_tz3/pages/registration/registration.dart';
 import '../forgotPassword/forgotpassword.dart';
@@ -44,7 +44,7 @@ class _AuthPageState extends State<AuthPage> {
 
   @override
   Widget build(BuildContext context) {
-    final i = IsarService();
+    final h = HiveService();
     return Scaffold(
       backgroundColor: backgroundColor,
       body: SingleChildScrollView(
@@ -150,7 +150,7 @@ class _AuthPageState extends State<AuthPage> {
                 ),
                 onPressed: buttonAuth
                     ? () async {
-                        int checker2 = await i.findUsers(value_tab2);
+                        int checker2 = await h.findUsers(value_tab2);
                         log(checker2.toString());
                         if (checker2 == 0) {
                           if (numberCorrect()) {

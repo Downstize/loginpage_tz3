@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:isar/isar.dart';
 import 'package:loginpage_tz3/main.dart';
 import 'package:loginpage_tz3/pages/home/pages/tasks/addList/addList.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class TaskPage extends StatefulWidget {
   const TaskPage({super.key});
@@ -37,14 +35,27 @@ class _TaskPageState extends State<TaskPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: profileBackground,
+        bottomOpacity: 0.0,
+        elevation: 0.0,
+        centerTitle: true,
+        title: Text(
+          "Задачи",
+          style: TextStyle(fontSize: 24, color: Colors.white),
+        ),
+      ),
       body: SingleChildScrollView(
         child: SizedBox(
           width: double.infinity,
           child: Column(
             children: [
               const SizedBox(
-                height: 60,
+                height: 20,
               ),
+              // const SizedBox(
+              //   height: 60,
+              // ),
               SizedBox(
                 width: MediaQuery.of(context).size.width / 1.159,
                 height: 40,
@@ -90,7 +101,6 @@ class _TaskPageState extends State<TaskPage> {
                         borderRadius: BorderRadius.circular(10),
                         color: containersColorOnTaskPage,
                       ),
-           
                       width: MediaQuery.of(context).size.width / 2.6,
                       height: 85,
                       child: Padding(
@@ -215,7 +225,6 @@ class _TaskPageState extends State<TaskPage> {
                         borderRadius: BorderRadius.circular(10),
                         color: containersColorOnTaskPage,
                       ),
-                     
                       width: MediaQuery.of(context).size.width / 2.6,
                       height: 85,
                       child: Padding(
@@ -272,7 +281,6 @@ class _TaskPageState extends State<TaskPage> {
                         borderRadius: BorderRadius.circular(10),
                         color: containersColorOnTaskPage,
                       ),
-                    
                       width: MediaQuery.of(context).size.width / 2.6,
                       height: 85,
                       child: Padding(
@@ -335,14 +343,12 @@ class _TaskPageState extends State<TaskPage> {
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          
                   children: [
                     Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         color: containersColorOnTaskPage,
                       ),
-                     
                       width: MediaQuery.of(context).size.width / 2.6,
                       height: 85,
                       child: Padding(

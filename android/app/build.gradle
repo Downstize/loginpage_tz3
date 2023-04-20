@@ -62,6 +62,7 @@ android {
             signingConfig signingConfigs.debug
         }
     }
+    namespace 'com.example.loginpage_tz3'
 }
 
 flutter {

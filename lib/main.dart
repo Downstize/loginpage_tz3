@@ -1,11 +1,20 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:loginpage_tz3/pages/home/home.dart';
 import 'pages/authorization/auth.dart';
+import 'package:isar/isar.dart';
 import 'package:provider/provider.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:loginpage_tz3/bd/isar_service.dart';
+import 'package:loginpage_tz3/bd/hive_service.dart';
 import 'package:responsive_framework/responsive_framework.dart';
+import 'package:hive/hive.dart';
+import 'package:loginpage_tz3/hive_collections/schedule_model.dart';
+import 'package:loginpage_tz3/hive_collections/user_model.dart';
+import 'package:loginpage_tz3/hive_collections/todo_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter/services.dart';
 
 const Color arrowBackColorForgetPasswordPage = Color.fromRGBO(27, 54, 93, 1);
 const Color labelTextColorForgetPasswordPage = Color.fromRGBO(27, 54, 93, 1);
@@ -41,18 +50,35 @@ const Color floatButtonColorTaskPage = Color.fromRGBO(27, 54, 93, 1);
 const Color iconsBackgroundColorOnTaskPage = Color.fromRGBO(27, 54, 93, 1);
 const Color profileBackground = Color.fromRGBO(27, 54, 93, 1);
 
-
 const Color containersColorOnTaskPage = Color.fromRGBO(27, 54, 93, 1);
 
 void main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Permission.notification.isDenied.then((value) {
-    if (value) {
-      Permission.notification.request();
-    }
-  });
-  final i = IsarService();
-  i.isarConfig;
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+  try {
+    WidgetsFlutterBinding.ensureInitialized();
+  } catch (e) {
+    print('Error occurred while initializing Flutter binding: $e');
+  }
+
+  await Hive.initFlutter();
+
+  if (!kIsWeb) {
+    await Permission.notification.isDenied.then((value) {
+      if (value) {
+        Permission.notification.request();
+        value = false;
+      }
+    });
+  }
+
+  //WidgetsFlutterBinding.ensureInitialized();
+  // } on Exception catch (e) {
+  //   print("Whats going with js");
+  // }
+  final h = HiveService();
+  h.hiveConfig();
   runApp(const Auth());
 }
 
@@ -66,23 +92,8 @@ class Auth extends StatelessWidget {
       create: (_) {
         return InternetConnectionChecker().onStatusChange;
       },
-      
       child: MaterialApp(
-        darkTheme: ThemeData.dark(),
-        
-          builder: (context, child) => ResponsiveWrapper.builder(
-          BouncingScrollWrapper.builder(context, child!),
-          maxWidth: 1200,
-          minWidth: 450,
-          defaultScale: true,
-          breakpoints: [
-            const ResponsiveBreakpoint.resize(450, name: MOBILE),
-            const ResponsiveBreakpoint.autoScale(800, name: TABLET),
-            const ResponsiveBreakpoint.autoScale(1000, name: TABLET),
-            const ResponsiveBreakpoint.resize(1200, name: DESKTOP),
-            const ResponsiveBreakpoint.autoScale(2460, name: "4K"),
-          ],
-              ),
+          darkTheme: ThemeData.dark(),
           theme: ThemeData(fontFamily: 'Navigo'),
           debugShowCheckedModeBanner: false,
           home: const HomePage() //AuthPage()

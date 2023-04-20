@@ -2,9 +2,8 @@ import 'dart:async';
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:isar/isar.dart';
-import 'package:loginpage_tz3/bd/isar_service.dart';
-import 'package:loginpage_tz3/collections/user_collection.dart';
+import 'package:loginpage_tz3/bd/hive_service.dart';
+import 'package:loginpage_tz3/hive_collections/user_model.dart';
 import 'package:loginpage_tz3/main.dart';
 import 'package:loginpage_tz3/widgetVerify/buttonWidget.dart';
 
@@ -45,7 +44,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
 
   @override
   Widget build(BuildContext context) {
-    final i = IsarService();
+    final h = HiveService();
 
     return Scaffold(
       appBar: AppBar(
@@ -143,7 +142,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   ),
                   onPressed: buttonSend
                       ? () async {
-                          int checker = await i.findUsers(value_tab);
+                          int checker = await h.findUsers(value_tab);
                           log(checker.toString());
                           if (checker == 1) {
                             tabelNumber = value_tab + emailAdd;

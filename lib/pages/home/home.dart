@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:loginpage_tz3/main.dart';
+import 'package:loginpage_tz3/pages/home/pages/main/main_page.dart';
 import 'package:loginpage_tz3/pages/home/pages/profile/profile.dart';
 import 'package:loginpage_tz3/pages/home/pages/tasks/tasks.dart';
+import 'package:loginpage_tz3/pages/week_page/week.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -75,12 +77,12 @@ class _HomePageState extends State<HomePage> {
           Container(
             color: colorHome,
             alignment: Alignment.center,
-            child: const Text('There would be a Main Page here'),
+            child: MainPage(),
           ),
           Container(
             color: colorSchedule,
             alignment: Alignment.center,
-            child: const Text('There would be a Schedule Page here'),
+            child: WeekPage(),
           ),
           Container(
             color: colorTasks,
