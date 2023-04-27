@@ -9,7 +9,7 @@ import '../forgotPassword/forgotpassword.dart';
 import 'password.dart';
 import 'package:loginpage_tz3/Services/internet_checker.dart';
 import 'package:provider/provider.dart';
-import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 
 bool passwordVisible = false;
 String value_tab2 = "";

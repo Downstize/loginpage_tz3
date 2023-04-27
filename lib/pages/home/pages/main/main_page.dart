@@ -39,18 +39,20 @@ class _MainPageState extends State<MainPage> {
     return Scaffold(
       backgroundColor: containersColorOnTaskPage,
       appBar: AppBar(
-    //     shape: RoundedRectangleBorder(
-    //   borderRadius: BorderRadius.vertical(
-    //     bottom: Radius.circular(30),
-    //   ),
-    // ),
-        backgroundColor: profileBackground,
-        bottomOpacity: 0.0,
-        //elevation: 0.0,
-        centerTitle: true,
-        title: const Text(
-          "Главная",
-          style: TextStyle(fontSize: 24, color: Colors.white),
+        automaticallyImplyLeading: false,
+        backgroundColor: Colors.white,
+        shadowColor: Colors.transparent,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+                bottomRight: Radius.circular(20),
+                bottomLeft: Radius.circular(20))),
+        flexibleSpace: SafeArea(
+          child: Center(
+            child: const Text(
+              "Главная",
+              style: TextStyle(fontSize: 24,fontWeight: FontWeight.bold, color:  Color.fromRGBO(27, 54, 93, 1)),
+            ),
+          ),
         ),
       ),
       body: SingleChildScrollView(
@@ -74,7 +76,7 @@ class _MainPageState extends State<MainPage> {
                               constraints: const BoxConstraints(
                                   maxHeight: double.infinity),
                               decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(30),
+                                borderRadius: BorderRadius.circular(20),
                                 color: Colors.white,
                               ),
                               width: MediaQuery.of(context).size.width / 1,

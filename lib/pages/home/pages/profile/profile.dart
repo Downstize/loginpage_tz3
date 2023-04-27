@@ -2,6 +2,9 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter/material.dart';
 import 'package:loginpage_tz3/main.dart';
+import 'package:loginpage_tz3/pages/home/pages/profile/session_res.dart';
+import 'package:loginpage_tz3/pages/home/pages/profile/profile_settings.dart';
+import '../../../authorization/auth.dart';
 
 String profile_name = "Георгий Ершов";
 // List<String> nameSplit = profile_name.split("");
@@ -19,119 +22,170 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: profileBackground,
-      appBar: buildAppBar(context),
-      body: Container(
-        color: profileBackground,
-        child: Column(
-          children: [
-            Container(
-              width: double.infinity,
-              height: 200,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  bottomRight: Radius.circular(40),
-                  bottomLeft: Radius.circular(40),
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: profileBackground,
+        appBar: buildAppBar(context),
+        body: Container(
+          color: profileBackground,
+          child: Column(
+            children: [
+              Container(
+                width: double.infinity,
+                height: 200,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    bottomRight: Radius.circular(40),
+                    bottomLeft: Radius.circular(40),
+                  ),
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(50),
+                      child: profileAsset != null && profileAsset.isNotEmpty
+                          ? Image.asset(
+                              profileAsset,
+                              height: 100,
+                              width: 100,
+                              fit: BoxFit.cover,
+                              errorBuilder: (BuildContext context,
+                                  Object exception, StackTrace? stackTrace) {
+                                return _buildInitialsAvatar(initials);
+                              },
+                            )
+                          : _buildInitialsAvatar(initials),
+                    ),
+                    SizedBox(
+                      height: 10,
+                      width: 30,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Center(
+                          child: Text('Георгий Ершов',
+                              style: TextStyle(
+                                  color: profileBackground, fontSize: 18)),
+                        ),
+                        Center(
+                          child: Text('21109843@edu.rut-miit.ru',
+                              style: TextStyle(
+                                  color: profileBackground, fontSize: 18)),
+                        ),
+                        Center(
+                          child: Text('УВП-211',
+                              style: TextStyle(
+                                  color: profileBackground, fontSize: 18)),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(50),
-                    child: profileAsset != null && profileAsset.isNotEmpty
-                        ? Image.asset(
-                            profileAsset,
-                            height: 100,
-                            width: 100,
-                            fit: BoxFit.cover,
-                            errorBuilder: (BuildContext context,
-                                Object exception, StackTrace? stackTrace) {
-                              return _buildInitialsAvatar(initials);
-                            },
-                          )
-                        : _buildInitialsAvatar(initials),
-                  ),
-                  SizedBox(
-                    height: 10,
-                    width: 30,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Center(
-                        child: Text('Георгий Ершов',
-                            style: TextStyle(
-                                color: profileBackground, fontSize: 18)),
+              SizedBox(height: 50),
+              Expanded(
+                child: Container(
+                    // height: 300,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(40),
+                        topRight: Radius.circular(40),
                       ),
-                      Center(
-                        child: Text('21109843@edu.rut-miit.ru',
-                            style: TextStyle(
-                                color: profileBackground, fontSize: 18)),
-                      ),
-                      Center(
-                        child: Text('УВП-211',
-                            style: TextStyle(
-                                color: profileBackground, fontSize: 18)),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: 50),
-            Expanded(
-              child: Container(
-                  // height: 300,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(40),
-                      topRight: Radius.circular(40),
                     ),
-                  ),
-                  child: Column(
-                    children: [
-                      SizedBox(height: 30),
-                      Expanded(
-                        child: Container(
-                          margin: EdgeInsets.only(left: 20, right: 20, top: 15),
-                          child: Column(
-                            children: [
-                              MenuProfileWidget(
+                    child: Column(
+                      children: [
+                        SizedBox(height: 30),
+                        Expanded(
+                          child: Container(
+                            margin: EdgeInsets.only(left: 20, right: 20, top: 15),
+                            child: Column(
+                              children: [
+                                // MenuProfileWidget(
+                                //     profileIcon:
+                                //         Icons.assignment_turned_in_outlined,
+                                //     settingsName: 'Результаты сессий'),
+                                // SizedBox(height: 10),
+                                // MenuProfileWidget(
+                                //     profileIcon: Icons.settings_outlined,
+                                //     settingsName: "Настройки"),
+                                // SizedBox(height: 10),
+                                // MenuProfileWidget(
+                                //     profileIcon: Icons.info_outlined,
+                                //     settingsName: 'Помощь'),
+                                // SizedBox(height: 10),
+                                // MenuProfileWidget(
+                                //     profileIcon: Icons.question_mark_outlined,
+                                //     settingsName: 'О приложении'),
+                                MenuProfileWidget(
                                   profileIcon:
                                       Icons.assignment_turned_in_outlined,
-                                  settingsName: 'Результаты сессий'),
-                              SizedBox(height: 10),
-                              MenuProfileWidget(
+                                  settingsName: 'Результаты сессий',
+                                  onPress: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const ResultsPage()));
+                                  },
+                                ),
+                                SizedBox(height: 10),
+                                MenuProfileWidget(
                                   profileIcon: Icons.settings_outlined,
-                                  settingsName: "Настройки"),
-                              SizedBox(height: 10),
-                              MenuProfileWidget(
+                                  settingsName: "Настройки",
+                                  onPress: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const SettingsPage()));
+                                  },
+                                ),
+                                SizedBox(height: 10),
+                                MenuProfileWidget(
                                   profileIcon: Icons.info_outlined,
-                                  settingsName: 'Помощь'),
-                              SizedBox(height: 10),
-                              MenuProfileWidget(
+                                  settingsName: 'Помощь',
+                                  onPress: () {},
+                                ),
+                                SizedBox(height: 10),
+                                MenuProfileWidget(
                                   profileIcon: Icons.question_mark_outlined,
-                                  settingsName: 'О приложении'),
-                            ],
+                                  settingsName: 'О приложении',
+                                  onPress: () {},
+                                ),
+                                SizedBox(height: 10),
+                                MenuProfileWidget(
+                                    profileIcon: Icons.logout,
+                                    settingsName: "Выйти",
+                                    onPress: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const AuthPage()));
+                                    },
+                                    textColor: Colors.red,
+                                    endIcon: false),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                      Container(
-                        child: Divider(
-                          thickness: 5,
-                          color: Colors.grey.withOpacity(0.7),
-                        ),
-                      ),
-                    ],
-                  )),
-            ),
-          ],
+                        // Container(
+                        //   child: Divider(
+                        //     thickness: 5,
+                        //     color: Colors.grey.withOpacity(0.7),
+                        //   ),
+                        // ),
+                      ],
+                    )),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -139,6 +193,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   AppBar buildAppBar(BuildContext context) {
     return AppBar(
+      automaticallyImplyLeading: false,
       backgroundColor: profileBackground,
       bottomOpacity: 0.0,
       elevation: 0.0,
@@ -167,11 +222,17 @@ Widget _buildInitialsAvatar(String initials) {
 class MenuProfileWidget extends StatelessWidget {
   final IconData profileIcon;
   final String settingsName;
+  final bool endIcon;
+  final void Function()? onPress;
+  final Color? textColor;
 
   const MenuProfileWidget({
     super.key,
     required this.profileIcon,
     required this.settingsName,
+    this.endIcon = true,
+    required this.onPress,
+    this.textColor,
   });
 
   @override
@@ -188,6 +249,7 @@ class MenuProfileWidget extends StatelessWidget {
       padding: EdgeInsets.all(0),
       child: ListTile(
         dense: true,
+        onTap: onPress,
         leading: Container(
           width: 30,
           height: 30,
@@ -198,8 +260,8 @@ class MenuProfileWidget extends StatelessWidget {
           child: Icon(profileIcon, color: profileBackground),
         ),
         title: Text(settingsName,
-            style: TextStyle(color: profileBackground, fontSize: 18)),
-        trailing: Container(
+            style: TextStyle(color: textColor, fontSize: 18)),
+        trailing: endIcon ? Container(
           width: 30,
           height: 30,
           decoration: BoxDecoration(
@@ -208,7 +270,7 @@ class MenuProfileWidget extends StatelessWidget {
           ),
           child: const Icon(Icons.arrow_forward_ios,
               size: 18.0, color: Colors.grey),
-        ),
+        ) : null,
       ),
     );
   }

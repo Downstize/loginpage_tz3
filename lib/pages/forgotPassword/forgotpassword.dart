@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:loginpage_tz3/main.dart';
-import 'package:loginpage_tz3/widgetVerify/buttonWidget.dart';
+import 'package:loginpage_tz3/widgets/buttonWidget.dart';
 import '../authorization/auth.dart';
 import 'dart:async';
 

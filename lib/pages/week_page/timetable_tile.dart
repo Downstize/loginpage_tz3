@@ -27,7 +27,7 @@ class _TimetableTileState extends State<TimetableTile> {
     return AnimatedContainer(
       margin: const EdgeInsets.only(top: 20, left: 20, right: 20),
       decoration: const BoxDecoration(
-        color: Colors.black12,
+        color: CupertinoColors.tertiarySystemFill,
         borderRadius: BorderRadius.all(Radius.circular(20)),
       ),
       duration: const Duration(seconds: 1),
@@ -45,7 +45,7 @@ class _TimetableTileState extends State<TimetableTile> {
                     right: 20,
                   ),
                   decoration: BoxDecoration(
-                    color: Colors.blue.shade700,
+                    color: Color.fromRGBO(27, 54, 93, 1),
                     borderRadius: BorderRadius.all(Radius.circular(20)),
                   ),
                   child: Container(

@@ -218,16 +218,13 @@ class _SearchPageState extends State<SearchPage> {
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
-        gradient: LinearGradient(begin: Alignment.bottomCenter, colors: [
-          Colors.blue.shade900,
-          Colors.blue.shade500,
-          Colors.blue.shade400,
-        ]),
+        color: Color.fromRGBO(27, 54, 93, 1),
       ),
       child: Scaffold(
         appBar: AppBar(
+          shadowColor: Colors.transparent,
           iconTheme: IconThemeData(
-            color: Colors.black, //change your color here
+            color: Color.fromRGBO(27, 54, 93, 1), //change your color here
           ),
           flexibleSpace: SafeArea(
             child: Container(
@@ -239,13 +236,17 @@ class _SearchPageState extends State<SearchPage> {
               ),
               padding: const EdgeInsets.only(left: 10),
               child: TextField(
-                controller: myController,
-                onSubmitted: _search,
-                decoration: const InputDecoration(
-                    hintText: "Поиск",
-                    hintStyle: TextStyle(color: Colors.grey),
-                    border: InputBorder.none),
-              ),
+                  controller: myController,
+                  onSubmitted: _search,
+                  decoration: const InputDecoration(
+                      hintText: "Поиск",
+                      hintStyle: TextStyle(color: Colors.grey),
+                      border: InputBorder.none,
+                //       contentPadding: EdgeInsets.only(
+                //   bottom: textfieldDimension / 2,  
+                // )
+                ),
+                ),
             ),
           ),
           backgroundColor: Colors.white,

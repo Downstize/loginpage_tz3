@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:loginpage_tz3/main.dart';
+import 'package:loginpage_tz3/pages/home/pages/audiences/audiences.dart';
 import 'package:loginpage_tz3/pages/home/pages/main/main_page.dart';
 import 'package:loginpage_tz3/pages/home/pages/profile/profile.dart';
 import 'package:loginpage_tz3/pages/home/pages/tasks/tasks.dart';
@@ -92,7 +93,7 @@ class _HomePageState extends State<HomePage> {
           Container(
             color: colorAudiences,
             alignment: Alignment.center,
-            child: const Text('There would be a Audiences Page here'),
+            child: AudiencesPage(),
           ),
           Container(
             color: colorProfile,

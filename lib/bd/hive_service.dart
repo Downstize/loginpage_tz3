@@ -4,6 +4,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:loginpage_tz3/hive_collections/schedule_model.dart';
 import 'package:loginpage_tz3/hive_collections/user_model.dart';
 import 'package:loginpage_tz3/hive_collections/todo_model.dart';
+import 'package:loginpage_tz3/hive_collections/session_model.dart';
 
 class HiveService {
 
@@ -11,9 +12,18 @@ class HiveService {
     Hive.registerAdapter(ScheduleAdapter());
     Hive.registerAdapter(UserAdapter());
     Hive.registerAdapter(ToDoAdapter());
+    Hive.registerAdapter(SessionAdapter());
     await Hive.openBox<Schedule>('schedule');
     await Hive.openBox<User>('user');
     await Hive.openBox<ToDo>('todo');
+    await Hive.openBox<Session>('session');
+  }
+
+  Future<String> getGroup(String tabNum) async {
+    final box = await Hive.box<User>('user');
+    final List<User> data =
+        box.values.where((user) => user.tabNumber == tabNum).toList();
+    return data[0].group;
   }
 
   Future<int> findUsers(String tabNum) async {
@@ -43,6 +53,64 @@ class HiveService {
     await box.add(newUser);
   }
 
+  Future<void> clearTable() async {
+    final box = await Hive.box<Schedule>('schedule');
+    final box2 = await Hive.box<Session>('session');
+    box.clear();
+    box2.clear();
+  }
+
+  Future<void> addSession(
+    String tabelnum,
+    // String group,
+    String subject,
+    String type,
+    String steacher,
+    String note1,
+    String note2,
+    String numSession,
+  ) async {
+    final box = await Hive.box<Session>('session');
+    final newSession = Session()
+      ..tabelnum = tabelnum
+      ..subject = subject
+      ..type = type
+      ..steacher = steacher
+      ..note1 = note1
+      ..note2 = note2
+      ..numSession = numSession;
+    await box.add(newSession);
+  }
+
+  Future<List<List<String>>> loadSession(
+    String numSession,
+    String tabelnum,
+    // String group,
+  ) async {
+    final box = await Hive.box<Session>('session');
+    final List<Session> sessions = box.values
+        .where((session) =>
+            session.numSession == numSession && session.tabelnum == tabelnum)
+        .toList();
+
+    final List<List<String>> output2 = [];
+
+    for (int i = 0; i < sessions.length; i++) {
+      final List<String> innerList2 =
+          List.filled(5, ''); // Initialize inner lists with default value
+      // innerList2[0] = sessions[i].tabelnum;
+      // innerList2[1] = sessions[i].group;
+      innerList2[0] = sessions[i].subject;
+      innerList2[1] = sessions[i].type;
+      innerList2[2] = sessions[i].steacher;
+      innerList2[3] = sessions[i].note1;
+      innerList2[4] = sessions[i].note2;
+      // innerList2[5] = sessions[i].numSession;
+      output2.add(innerList2);
+    }
+    return output2;
+  }
+
   Future<void> addSchedule2(
     String auditory,
     String dayNumber,
@@ -64,6 +132,7 @@ class HiveService {
       ..teacher = teacher
       ..type = type;
     await box.add(newSchedule);
+    
   }
 
   Future<void> addUserPass(String pass) async {

@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:loginpage_tz3/bd/hive_service.dart';
 import 'package:loginpage_tz3/hive_collections/user_model.dart';
 import 'package:loginpage_tz3/main.dart';
-import 'package:loginpage_tz3/widgetVerify/buttonWidget.dart';
+import 'package:loginpage_tz3/widgets/buttonWidget.dart';
 
 bool passwordVisibleTop = false;
 bool passwordVisibleBottom = false;

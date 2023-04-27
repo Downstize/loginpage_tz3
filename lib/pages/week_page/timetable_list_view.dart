@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:loginpage_tz3/pages/week_page/timetable_tile.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import '../../hive_collections/schedule_model.dart';
 import 'api.dart';
 import 'package:loginpage_tz3/bd/hive_service.dart';
 import 'package:loginpage_tz3/main.dart';
@@ -75,79 +77,29 @@ class TimetableListView extends StatefulWidget {
 }
 
 class _TimetableListViewState extends State<TimetableListView> {
-
   String s = '';
   String dayName = '';
   String lessonTime = '';
   List<List<String>> timetableList = [];
-  String day = "Пн";
-  int week = 1;
+  // String day = "Пн";
+  // int week = 1;
   //final h = HiveService();
-  
 
-  Future<void> _getTimetableList(dayname, weeknum)async {
+  Future<void> _getTimetableList(dayname, weeknum) async {
     final h = HiveService();
     h.hiveConfig;
-    // await h.addSchedule2("1234", "Пн", "12:50", 'Математика', 1, "9:30",
-    //     "Васиьлькова Т.А.", "лекторная");
-    timetableList = await h.loadSchedule(dayname, weeknum); 
-    print(timetableList);
+    timetableList = await h.loadSchedule(dayname, weeknum);
+    setState(() {});
   }
-  // void _getTimetableList(day, week) {
-  //   final i = IsarService();
-  //   i.isarConfig;
-  //   i.addSchedule2("1234","Пн", "12:50", 'Математика', 1, "9:30", "Васиьлькова Т.А.", "лекторная");
-  //   Future<List<List<String>>> futureData = i.loadSchedule(day, week);
 
-  //   futureData.then((List<List<String>> data) {
-  //   // The result is now available as a List<List<String>>
-  //     timetableList = data;
-  //   print(timetableList);
-  //   //print(timetableList);
-  //   // Do whatever you need to do with the result here
-  // });
-  // }
+  Future<void> _deleteLesson(dayname, weeknum) async {
+    final h = HiveService();
 
-  // Future<List<List<String>>> _getTimetableList2(dayname, weeknum) async {
-  //   final i = IsarService();
-  //   i.isarConfig;
-  //   i.addSchedule2("1234","Пн", "12:50", 'Математика', 1, "9:30", "Васиьлькова Т.А.", "лекторная");
-  //   // i.addSchedule('Математика', 1, "лекторная", "Васиьлькова Т.А.", "1234", "Пн", "9:30", "12:50");
-  //   // i.addSchedule('Математика', 1, "лекторная", "Васиьлькова Т.А.", "1234", "Вт", "9:30", "12:50");
-  //   // i.addSchedule('Математика', 1, "лекторная", "Васиьлькова Т.А.", "1234", "Вт", "9:30", "12:50");
-  //   // i.addSchedule('Математика', 1, "лекторная", "Васиьлькова Т.А.", "1234", "Ср", "9:30", "12:50");
-  //   // i.addSchedule('Математика', 1, "лекторная", "Васиьлькова Т.А.", "1234", "Ср", "9:30", "12:50");
-  //   // i.addSchedule('Математика', 1, "лекторная", "Васиьлькова Т.А.", "1234", "Чт", "9:30", "12:50");
-  //   // i.addSchedule('Математика', 1, "лекторная", "Васиьлькова Т.А.", "1234", "Чт", "9:30", "12:50");
-  //   // i.addSchedule('Математика', 1, "лекторная", "Васиьлькова Т.А.", "1234", "Пт", "9:30", "12:50");
-  //   // i.addSchedule('Математика', 1, "лекторная", "Васиьлькова Т.А.", "1234", "Пт", "9:30", "12:50");
-  //   // i.addSchedule('Математика', 1, "лекторная", "Васиьлькова Т.А.", "1234", "Сб", "9:30", "12:50");
-  //   // i.addSchedule('Математика', 1, "лекторная", "Васиьлькова Т.А.", "1234", "Сб", "9:30", "12:50");
-  //   // i.addSchedule('Математика', 1, "лекторная", "Васиьлькова Т.А.", "1234", "Вс", "9:30", "12:50");
-  //   // i.addSchedule('Математика', 1, "лекторная", "Васиьлькова Т.А.", "1234", "Вс", "9:30", "12:50");
-  //   // i.addSchedule('Математика', 2, "лекторная", "Васиьлькова Т.А.", "1234", "Пн", "9:30", "12:50");
-  //   // i.addSchedule('Математика', 2, "лекторная", "Васиьлькова Т.А.", "1234", "Пн", "9:30", "12:50");
-  //   // i.addSchedule('Математика', 2, "лекторная", "Васиьлькова Т.А.", "1234", "Вт", "9:30", "12:50");
-  //   // i.addSchedule('Математика', 2, "лекторная", "Васиьлькова Т.А.", "1234", "Вт", "9:30", "12:50");
-  //   // i.addSchedule('Математика', 2, "лекторная", "Васиьлькова Т.А.", "1234", "Ср", "9:30", "12:50");
-  //   // i.addSchedule('Математика', 2, "лекторная", "Васиьлькова Т.А.", "1234", "Ср", "9:30", "12:50");
-  //   // i.addSchedule('Математика', 2, "лекторная", "Васиьлькова Т.А.", "1234", "Чт", "9:30", "12:50");
-  //   // i.addSchedule('Математика', 2, "лекторная", "Васиьлькова Т.А.", "1234", "Чт", "9:30", "12:50");
-  //   // i.addSchedule('Математика', 2, "лекторная", "Васиьлькова Т.А.", "1234", "Пт", "9:30", "12:50");
-  //   // i.addSchedule('Математика', 2, "лекторная", "Васиьлькова Т.А.", "1234", "Пт", "9:30", "12:50");
-  //   // i.addSchedule('Математика', 2, "лекторная", "Васиьлькова Т.А.", "1234", "Сб", "9:30", "12:50");
-  //   // i.addSchedule('Математика', 2, "лекторная", "Васиьлькова Т.А.", "1234", "Сб", "9:30", "12:50");
-  //   // i.addSchedule('Математика', 2, "лекторная", "Васиьлькова Т.А.", "1234", "Вс", "9:30", "12:50");
-  //   // i.addSchedule('Математика', 2, "лекторная", "Васиьлькова Т.А.", "1234", "Вс", "9:30", "12:50");
-  //   timetableList = await i.loadSchedule(dayname, weeknum); 
-  //   print(timetableList);
-  // }
+  }
 
 
   Future<void> _getTimeTableListApi() async {
     var id = 0;
-    final h = await HiveService();
-    h.hiveConfig;
     // var data = json.decode(
     //     (await http.get(Uri.parse("http://89.208.221.228/api/timetables/")))
     //         .body);
@@ -466,37 +418,17 @@ class _TimetableListViewState extends State<TimetableListView> {
     setState(() {});
   }
 
-  Future<void> getList() async {
-    //final prefs = await SharedPreferences.getInstance();
-    setState(() {
-      //timetableList = (prefs.getStringList('timetable') ?? []);
-    });
-  }
 
 
- Future<void> addInfo() async {
-  final h = HiveService();
-  await h.addSchedule2("1234", "Пн", "12:50", 'Математика', 1, "9:30",
-      "Васиьлькова Т.А.", "лекторная");
- }
-
-  
-  //late final LocalNotificationService service;
 
   @override
   void initState() {
-    final h = HiveService();  
-    h.hiveConfig;
-    //service = LocalNotificationService();
-    //service.intialize();
-    //listenToNotification();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     //addInfo();
-    getList();
     int weeknum = 0;
     var selectedDate = widget.date;
     var _selectedDate = selectedDate.characters.take(10).toString().split('-');
@@ -514,7 +446,6 @@ class _TimetableListViewState extends State<TimetableListView> {
         int.parse(_selectedDate[0]),
         int.parse(_selectedDate[1]),
         int.parse(_selectedDate[2])));
-        
 
     List<String> type = [];
     List<String> lesson = [];
@@ -524,24 +455,22 @@ class _TimetableListViewState extends State<TimetableListView> {
     List<String> start = [];
     List<String> end = [];
 
-    // print(timetableList);
-    _getTimetableList(day, week);
-    print(timetableList);
+    _getTimetableList(dayname, weeknum);
     for (int i = 0; i < timetableList.length; i++) {
-        for (int j = 0; j < timetableList[i].length; j=j+6) {
-          cabinet.add(timetableList[i][j]);
-          lesson.add(timetableList[i][j+1]);
-          theacher.add(timetableList[i][j+2]);
-          type.add(timetableList[i][j+3]);
-          start.add(timetableList[i][j+4]);
-          end.add(timetableList[i][j+5]);
-          lesson_number.add(timetableList[i][j+4]+timetableList[i][j+5]);
-          //print(timetableList[i][j]);
-        }
+      for (int j = 0; j < timetableList[i].length; j = j + 6) {
+        cabinet.add(timetableList[i][j]);
+        lesson.add(timetableList[i][j + 1]);
+        theacher.add(timetableList[i][j + 2]);
+        type.add(timetableList[i][j + 3]);
+        start.add(timetableList[i][j + 4]);
+        end.add(timetableList[i][j + 5]);
+        lesson_number.add(timetableList[i][j + 4] +' - ' +timetableList[i][j + 5]);
       }
-
+    }
 
     return RefreshIndicator(
+      color: Colors.white,
+      backgroundColor: Color.fromRGBO(27, 54, 93, 1),
       onRefresh: _getTimeTableListApi,
       child: ListView.builder(
         itemCount: lesson.length,
@@ -556,14 +485,6 @@ class _TimetableListViewState extends State<TimetableListView> {
         },
       ),
     );
+
   }
-
-  // void listenToNotification() =>
-  //     service.onNotificationClick.stream.listen(onNoticationListener);
-
-  // void onNoticationListener(String? payload) {
-  //   if (payload != null && payload.isNotEmpty) {
-  //     print('payload $payload');
-  //   }
-  // }
 }

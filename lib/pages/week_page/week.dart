@@ -1,6 +1,7 @@
 import 'package:calendar_timeline/calendar_timeline.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:loginpage_tz3/main.dart';
 import 'package:loginpage_tz3/pages/week_page/search.dart';
 import 'package:loginpage_tz3/pages/week_page/timetable_list_view.dart';
 
@@ -26,37 +27,42 @@ class _WeekPageState extends State<WeekPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromRGBO(27, 54, 93, 1),
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        backgroundColor: Colors.white,
+        shadowColor: Colors.transparent,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+                bottomRight: Radius.circular(20),
+                bottomLeft: Radius.circular(20))),
+        flexibleSpace: SafeArea(
+          child: Center(
+            child: const Text(
+              "Рассписание",
+              style: TextStyle(fontSize: 24,fontWeight: FontWeight.bold, color:  Color.fromRGBO(27, 54, 93, 1)),
+            ),
+          ),
+        ),
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
            Navigator.of(context).push(
             MaterialPageRoute(builder: (context) =>SearchPage()));
         },
-        child: Icon(Icons.search),
-        backgroundColor: Colors.blue.shade700,
+        child: Icon(Icons.search,color: Colors.white,),
+        backgroundColor: Color.fromRGBO(27, 54, 93, 1),
       ),
       body: Container(
         width: double.infinity,
         decoration: BoxDecoration(
-          gradient: LinearGradient(begin: Alignment.topCenter, colors: [
-            Colors.blue.shade900,
-            Colors.blue.shade500,
-            Colors.blue.shade400,
-          ]),
+          color: profileBackground,
         ),
         child: SafeArea(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(16),
-                child: Text(
-                  'Расписание',
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline6!
-                      .copyWith(color: Colors.white),
-                ),
-              ),
+              SizedBox(height: 20),
               CalendarTimeline(
                 showYears: false,
                 initialDate: _selectedDate,
@@ -74,10 +80,10 @@ class _WeekPageState extends State<WeekPage> {
                 leftMargin: 20,
                 monthColor: Colors.white70,
                 dayColor: Colors.white70,
-                dayNameColor: Colors.white70,
-                activeDayColor: Colors.white,
-                activeBackgroundDayColor: Colors.blue.shade700,
-                dotsColor: Colors.white70,
+                dayNameColor: Color.fromRGBO(27, 54, 93, 1),
+                activeDayColor: Color.fromRGBO(27, 54, 93, 1),
+                activeBackgroundDayColor: Colors.white,
+                dotsColor: Color.fromRGBO(27, 54, 93, 1),
                 locale: 'ru',
               ),
               SizedBox(height: 20),
@@ -88,8 +94,7 @@ class _WeekPageState extends State<WeekPage> {
                                 color: Colors.white,
                                 borderRadius: BorderRadius.only(
                                     topLeft: Radius.circular(20),
-                                    topRight: Radius.circular(20)),
-                                boxShadow: [BoxShadow(blurRadius: 10.0)]),
+                                    topRight: Radius.circular(20)),),
                             child:
                                 TimetableListView(date: _selectedDate.toString()),
                 ),
