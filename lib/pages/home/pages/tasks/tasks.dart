@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:loginpage_tz3/main.dart';
 import 'package:loginpage_tz3/pages/home/pages/tasks/addList/addList.dart';
@@ -129,7 +130,7 @@ class _TaskPageState extends State<TaskPage> {
                           child: Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
-                              color: containersColorOnTaskPage,
+                              color: CupertinoColors.tertiarySystemFill,
                             ),
                             width: MediaQuery.of(context).size.width / 2.45,
                             height: 85,
@@ -145,7 +146,7 @@ class _TaskPageState extends State<TaskPage> {
                                         width: 33,
                                         height: 33,
                                         decoration: const BoxDecoration(
-                                          color: Colors.white,
+                                          color: CupertinoColors.tertiarySystemFill,
                                           borderRadius:
                                               BorderRadius.all(Radius.circular(30)),
                                         ),
@@ -157,7 +158,7 @@ class _TaskPageState extends State<TaskPage> {
                                       Text(
                                         countLocalTask,
                                         style: const TextStyle(
-                                            color: Colors.white,
+                                            color: containersColorOnTaskPage,
                                             fontSize: 25,
                                             fontWeight: FontWeight.bold),
                                       )
@@ -171,7 +172,7 @@ class _TaskPageState extends State<TaskPage> {
                                         Text(
                                           'Сегодня',
                                           style: TextStyle(
-                                              color: Colors.white,
+                                              color: containersColorOnTaskPage,
                                               fontSize: 17,
                                               fontWeight: FontWeight.w500),
                                         ),
@@ -193,7 +194,7 @@ class _TaskPageState extends State<TaskPage> {
                           child: Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
-                              color: containersColorOnTaskPage,
+                              color: CupertinoColors.tertiarySystemFill,
                             ),
                             width: MediaQuery.of(context).size.width / 2.45,
                             height: 85,
@@ -209,7 +210,7 @@ class _TaskPageState extends State<TaskPage> {
                                         width: 33,
                                         height: 33,
                                         decoration: const BoxDecoration(
-                                          color: Colors.white,
+                                          color: CupertinoColors.tertiarySystemFill,
                                           borderRadius:
                                               BorderRadius.all(Radius.circular(30)),
                                         ),
@@ -221,7 +222,7 @@ class _TaskPageState extends State<TaskPage> {
                                       Text(
                                         countLocalTask,
                                         style: const TextStyle(
-                                            color: Colors.white,
+                                            color: containersColorOnTaskPage,
                                             fontSize: 25,
                                             fontWeight: FontWeight.bold),
                                       )
@@ -235,7 +236,7 @@ class _TaskPageState extends State<TaskPage> {
                                         Text(
                                           'Запланировано',
                                           style: TextStyle(
-                                              color: Colors.white,
+                                              color: containersColorOnTaskPage,
                                               fontSize: 17,
                                               fontWeight: FontWeight.w500),
                                         ),
@@ -269,7 +270,7 @@ class _TaskPageState extends State<TaskPage> {
                           child: Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
-                              color: containersColorOnTaskPage,
+                              color: CupertinoColors.tertiarySystemFill,
                             ),
                             width: MediaQuery.of(context).size.width / 2.45,
                             height: 85,
@@ -285,7 +286,7 @@ class _TaskPageState extends State<TaskPage> {
                                         width: 33,
                                         height: 33,
                                         decoration: const BoxDecoration(
-                                          color: Colors.white,
+                                          color: CupertinoColors.tertiarySystemFill,
                                           borderRadius:
                                               BorderRadius.all(Radius.circular(30)),
                                         ),
@@ -297,7 +298,7 @@ class _TaskPageState extends State<TaskPage> {
                                       Text(
                                         countLocalTask,
                                         style: const TextStyle(
-                                            color: Colors.white,
+                                            color: containersColorOnTaskPage,
                                             fontSize: 25,
                                             fontWeight: FontWeight.bold),
                                       )
@@ -311,7 +312,7 @@ class _TaskPageState extends State<TaskPage> {
                                         Text(
                                           'Все',
                                           style: TextStyle(
-                                              color: Colors.white,
+                                              color: containersColorOnTaskPage,
                                               fontSize: 17,
                                               fontWeight: FontWeight.w500),
                                         ),
@@ -333,7 +334,7 @@ class _TaskPageState extends State<TaskPage> {
                           child: Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
-                              color: containersColorOnTaskPage,
+                              color: CupertinoColors.tertiarySystemFill,
                             ),
                             width: MediaQuery.of(context).size.width / 2.45,
                             height: 85,
@@ -349,7 +350,7 @@ class _TaskPageState extends State<TaskPage> {
                                         width: 33,
                                         height: 33,
                                         decoration: const BoxDecoration(
-                                          color: Colors.white,
+                                          color: CupertinoColors.tertiarySystemFill,
                                           borderRadius:
                                               BorderRadius.all(Radius.circular(30)),
                                         ),
@@ -361,7 +362,7 @@ class _TaskPageState extends State<TaskPage> {
                                       Text(
                                         countLocalTask,
                                         style: const TextStyle(
-                                            color: Colors.white,
+                                            color: containersColorOnTaskPage,
                                             fontSize: 25,
                                             fontWeight: FontWeight.bold),
                                       )
@@ -375,7 +376,7 @@ class _TaskPageState extends State<TaskPage> {
                                         Text(
                                           'С флажком',
                                           style: TextStyle(
-                                              color: Colors.white,
+                                              color: containersColorOnTaskPage,
                                               fontSize: 17,
                                               fontWeight: FontWeight.w500),
                                         ),
@@ -409,7 +410,7 @@ class _TaskPageState extends State<TaskPage> {
                           child: Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
-                              color: containersColorOnTaskPage,
+                              color: CupertinoColors.tertiarySystemFill,
                             ),
                             width: MediaQuery.of(context).size.width / 2.45,
                             height: 85,
@@ -425,7 +426,7 @@ class _TaskPageState extends State<TaskPage> {
                                         width: 33,
                                         height: 33,
                                         decoration: const BoxDecoration(
-                                          color: Colors.white,
+                                          color: CupertinoColors.tertiarySystemFill,
                                           borderRadius:
                                               BorderRadius.all(Radius.circular(30)),
                                         ),
@@ -437,7 +438,7 @@ class _TaskPageState extends State<TaskPage> {
                                       Text(
                                         countLocalTask,
                                         style: const TextStyle(
-                                            color: Colors.white,
+                                            color: containersColorOnTaskPage,
                                             fontSize: 25,
                                             fontWeight: FontWeight.bold),
                                       )
@@ -451,7 +452,7 @@ class _TaskPageState extends State<TaskPage> {
                                         Text(
                                           'Завершено',
                                           style: TextStyle(
-                                              color: Colors.white,
+                                              color: containersColorOnTaskPage,
                                               fontSize: 17,
                                               fontWeight: FontWeight.w500),
                                         ),
@@ -490,7 +491,7 @@ class _TaskPageState extends State<TaskPage> {
                     padding: const EdgeInsets.only(top: 5, bottom: 5),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
-                        color: containersColorOnTaskPage),
+                        color: CupertinoColors.tertiarySystemFill),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
@@ -508,7 +509,7 @@ class _TaskPageState extends State<TaskPage> {
                                     width: 40,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(50),
-                                      color: Colors.white,
+                                      color: CupertinoColors.tertiarySystemFill,
                                     ),
                                     child: const Icon(Icons.list,
                                         color: iconsBackgroundColorOnTaskPage),
@@ -518,7 +519,7 @@ class _TaskPageState extends State<TaskPage> {
                                     child: const Text(
                                       "Напоминания",
                                       style: TextStyle(
-                                          color: Colors.white,
+                                          color: containersColorOnTaskPage,
                                           fontSize: 17,
                                           fontWeight: FontWeight.w500),
                                     ),
@@ -532,13 +533,13 @@ class _TaskPageState extends State<TaskPage> {
                                   Text(
                                     countLocalTask,
                                     style: const TextStyle(
-                                        color: Colors.white,
+                                        color: containersColorOnTaskPage,
                                         //fontSize: 17,
                                         fontWeight: FontWeight.w500),
                                   ),
                                   const Icon(
                                     Icons.chevron_right,
-                                    color: Colors.white,
+                                    color: containersColorOnTaskPage,
                                   )
                                 ],
                               )
