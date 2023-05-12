@@ -89,6 +89,7 @@ class _TimetableListViewState extends State<TimetableListView> {
     final h = HiveService();
     h.hiveConfig;
     timetableList = await h.loadSchedule(dayname, weeknum);
+    print(timetableList);
     setState(() {});
   }
 
@@ -456,6 +457,7 @@ class _TimetableListViewState extends State<TimetableListView> {
     List<String> end = [];
 
     _getTimetableList(dayname, weeknum);
+    
     for (int i = 0; i < timetableList.length; i++) {
       for (int j = 0; j < timetableList[i].length; j = j + 6) {
         cabinet.add(timetableList[i][j]);

@@ -2,8 +2,10 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter/material.dart';
 import 'package:loginpage_tz3/main.dart';
-import 'package:loginpage_tz3/pages/home/pages/profile/session_res.dart';
-import 'package:loginpage_tz3/pages/home/pages/profile/profile_settings.dart';
+import 'package:loginpage_tz3/pages/home/home.dart';
+import 'package:loginpage_tz3/pages/home/pages/profile/session_results/session_res.dart';
+import 'package:loginpage_tz3/pages/home/pages/profile/subpages/profile_settings.dart';
+import 'package:loginpage_tz3/pages/home/pages/profile/session_results/session_res_teacher.dart';
 import '../../../authorization/auth.dart';
 
 String profile_name = "Георгий Ершов";
@@ -25,19 +27,19 @@ class _ProfilePageState extends State<ProfilePage> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: profileBackground,
-        appBar: buildAppBar(context),
+        //appBar: buildAppBar(context),
         body: Container(
           color: profileBackground,
           child: Column(
             children: [
               Container(
                 width: double.infinity,
-                height: 200,
+                height: MediaQuery.of(context).size.height/3,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(
-                    bottomRight: Radius.circular(40),
-                    bottomLeft: Radius.circular(40),
+                    bottomRight: Radius.circular(20),
+                    bottomLeft: Radius.circular(20),
                   ),
                 ),
                 child: Column(
@@ -69,16 +71,19 @@ class _ProfilePageState extends State<ProfilePage> {
                         Center(
                           child: Text('Георгий Ершов',
                               style: TextStyle(
+                                  fontWeight: FontWeight.bold,
                                   color: profileBackground, fontSize: 18)),
                         ),
                         Center(
                           child: Text('21109843@edu.rut-miit.ru',
                               style: TextStyle(
+                                  fontWeight: FontWeight.bold,
                                   color: profileBackground, fontSize: 18)),
                         ),
                         Center(
                           child: Text('УВП-211',
                               style: TextStyle(
+                                  fontWeight: FontWeight.bold,
                                   color: profileBackground, fontSize: 18)),
                         ),
                       ],
@@ -86,7 +91,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   ],
                 ),
               ),
-              SizedBox(height: 50),
+              SizedBox(height: 30),
               Expanded(
                 child: Container(
                     // height: 300,
@@ -94,13 +99,12 @@ class _ProfilePageState extends State<ProfilePage> {
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(40),
-                        topRight: Radius.circular(40),
+                        topLeft: Radius.circular(20),
+                        topRight: Radius.circular(20),
                       ),
                     ),
                     child: Column(
                       children: [
-                        SizedBox(height: 30),
                         Expanded(
                           child: Container(
                             margin: EdgeInsets.only(left: 20, right: 20, top: 15),
@@ -123,19 +127,28 @@ class _ProfilePageState extends State<ProfilePage> {
                                 //     profileIcon: Icons.question_mark_outlined,
                                 //     settingsName: 'О приложении'),
                                 MenuProfileWidget(
+                                  textColor: profileBackground,
                                   profileIcon:
                                       Icons.assignment_turned_in_outlined,
                                   settingsName: 'Результаты сессий',
                                   onPress: () {
+                                    userType == 'student' ?
+                                    //function checking users type
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                const ResultsPage()));
+                                                const ResultsPage())):
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const TeacherResultsPage()));
                                   },
                                 ),
                                 SizedBox(height: 10),
                                 MenuProfileWidget(
+                                  textColor: profileBackground,
                                   profileIcon: Icons.settings_outlined,
                                   settingsName: "Настройки",
                                   onPress: () {
@@ -148,12 +161,14 @@ class _ProfilePageState extends State<ProfilePage> {
                                 ),
                                 SizedBox(height: 10),
                                 MenuProfileWidget(
+                                  textColor: profileBackground,
                                   profileIcon: Icons.info_outlined,
                                   settingsName: 'Помощь',
                                   onPress: () {},
                                 ),
                                 SizedBox(height: 10),
                                 MenuProfileWidget(
+                                  textColor: profileBackground,
                                   profileIcon: Icons.question_mark_outlined,
                                   settingsName: 'О приложении',
                                   onPress: () {},
@@ -169,7 +184,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                               builder: (context) =>
                                                   const AuthPage()));
                                     },
-                                    textColor: Colors.red,
+                                    //textColor: Colors.red,
                                     endIcon: false),
                               ],
                             ),
@@ -237,8 +252,13 @@ class MenuProfileWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final double screenHeight = MediaQuery.of(context).size.height;
+    final double containerHeight = screenHeight * 0.07;
+    final double leadingIconSize = containerHeight * 0.8;
+    final double trailingIconSize = containerHeight * 0.6;
+
     return Container(
-      // height: 50,
+      height: containerHeight,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
         border: Border.all(
@@ -251,8 +271,8 @@ class MenuProfileWidget extends StatelessWidget {
         dense: true,
         onTap: onPress,
         leading: Container(
-          width: 30,
-          height: 30,
+          width: leadingIconSize,
+          height: leadingIconSize,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(100),
             //color: profileBackground.withOpacity(0.1),
@@ -260,18 +280,61 @@ class MenuProfileWidget extends StatelessWidget {
           child: Icon(profileIcon, color: profileBackground),
         ),
         title: Text(settingsName,
-            style: TextStyle(color: textColor, fontSize: 18)),
-        trailing: endIcon ? Container(
-          width: 30,
-          height: 30,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(100),
-            //color: Colors.grey.withOpacity(0.1),
-          ),
-          child: const Icon(Icons.arrow_forward_ios,
-              size: 18.0, color: Colors.grey),
-        ) : null,
+            style:
+                TextStyle(color: textColor, fontSize: 20)),
+        trailing: endIcon
+            ? Container(
+                width: trailingIconSize,
+                height: trailingIconSize,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(100),
+                  //color: Colors.grey.withOpacity(0.1),
+                ),
+                child: Icon(Icons.arrow_forward_ios,
+                    size: containerHeight * 0.3, color: Colors.grey),
+              )
+            : null,
       ),
     );
   }
+
+  // @override
+  // Widget build(BuildContext context) {
+  //   return Container(
+  //     // height: 50,
+  //     decoration: BoxDecoration(
+  //       borderRadius: BorderRadius.circular(20),
+  //       border: Border.all(
+  //         color: Colors.grey.withOpacity(0.3),
+  //         width: 2,
+  //       ),
+  //     ),
+  //     padding: EdgeInsets.all(0),
+  //     child: ListTile(
+  //       dense: true,
+  //       onTap: onPress,
+  //       leading: Container(
+  //         width: 30,
+  //         height: 30,
+  //         decoration: BoxDecoration(
+  //           borderRadius: BorderRadius.circular(100),
+  //           //color: profileBackground.withOpacity(0.1),
+  //         ),
+  //         child: Icon(profileIcon, color: profileBackground),
+  //       ),
+  //       title: Text(settingsName,
+  //           style: TextStyle(color: textColor, fontSize: 18)),
+  //       trailing: endIcon ? Container(
+  //         width: 30,
+  //         height: 30,
+  //         decoration: BoxDecoration(
+  //           borderRadius: BorderRadius.circular(100),
+  //           //color: Colors.grey.withOpacity(0.1),
+  //         ),
+  //         child: const Icon(Icons.arrow_forward_ios,
+  //             size: 18.0, color: Colors.grey),
+  //       ) : null,
+  //     ),
+  //   );
+  // }
 }

@@ -19,7 +19,7 @@ class _ScheduledTasksState extends State<ScheduledTasks> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromRGBO(27, 54, 93, 1),
+      backgroundColor: const Color.fromRGBO(27, 54, 93, 1),
       appBar: _appBarSettings(),
       body: Column(
         children: [
@@ -50,6 +50,7 @@ class _ScheduledTasksState extends State<ScheduledTasks> {
 
   _appBarSettings() {
     return AppBar(
+      centerTitle: true,
       foregroundColor: Color.fromRGBO(27, 54, 93, 1),
       elevation: 0,
       leading: const BackButton(),

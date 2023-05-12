@@ -16,11 +16,30 @@ class _TodayTasksState extends State<TodayTasks> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color.fromRGBO(27, 54, 93, 1),
       appBar: _appBarSettings(context),
-      backgroundColor: Colors.white,
       body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [_addTaskBar(context)],
+        children: [
+          const SizedBox(
+            height: 30,
+          ),
+          Expanded(
+            child: Container(
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                    topRight: Radius.circular(20)),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _addTaskBar(context),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -28,24 +47,36 @@ class _TodayTasksState extends State<TodayTasks> {
 
 _appBarSettings(BuildContext context) {
   return AppBar(
-    foregroundColor: containersColorOnTaskPage,
-    backgroundColor: Colors.transparent,
+    centerTitle: true,
+    foregroundColor: Color.fromRGBO(27, 54, 93, 1),
     elevation: 0,
+    leading: const BackButton(),
+    automaticallyImplyLeading: false,
+    backgroundColor: Colors.white,
+    shadowColor: Colors.transparent,
+    shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+            bottomRight: Radius.circular(20), bottomLeft: Radius.circular(20))),
     title: GestureDetector(
-        onTap: () {
-          Navigator.pop(context);
-        },
-        child: const Text(
-          "Задачи",
-          style: TextStyle(fontSize: 20),
-        )),
+      onTap: () {
+        Navigator.pop(context);
+      },
+      child: const Text(
+        "Задачи",
+        style: TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+          color: Color.fromRGBO(27, 54, 93, 1),
+        ),
+      ),
+    ),
     titleSpacing: 0,
   );
 }
 
 _addTaskBar(BuildContext context) {
   return Container(
-    margin: const EdgeInsets.only(left: 10, right: 10, top: 10),
+    margin: const EdgeInsets.only(left: 10, right: 10, top: 20),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [

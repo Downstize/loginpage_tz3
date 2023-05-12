@@ -1,6 +1,6 @@
 import 'package:hive/hive.dart';
 
-part 'user_model.g.dart';
+part 'users_model.g.dart';
 
 @HiveType(typeId: 0)
 class User extends HiveObject {
@@ -19,4 +19,7 @@ class User extends HiveObject {
   late String tabNumber;
   @HiveField(6)
   late String pass;
+  @HiveField(7, defaultValue: 'teacher')
+  late String type;
+  // late String type;
 }

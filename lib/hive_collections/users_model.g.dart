@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'user_model.dart';
+part of 'users_model.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
@@ -23,13 +23,14 @@ class UserAdapter extends TypeAdapter<User> {
       ..group = fields[3] as String
       ..email = fields[4] as String
       ..tabNumber = fields[5] as String
-      ..pass = fields[6] as String;
+      ..pass = fields[6] as String
+      ..type = fields[7] == null ? 'teacher' : fields[7] as String;
   }
 
   @override
   void write(BinaryWriter writer, User obj) {
     writer
-      ..writeByte(7)
+      ..writeByte(8)
       ..writeByte(0)
       ..write(obj.name)
       ..writeByte(1)
@@ -43,7 +44,9 @@ class UserAdapter extends TypeAdapter<User> {
       ..writeByte(5)
       ..write(obj.tabNumber)
       ..writeByte(6)
-      ..write(obj.pass);
+      ..write(obj.pass)
+      ..writeByte(7)
+      ..write(obj.type);
   }
 
   @override

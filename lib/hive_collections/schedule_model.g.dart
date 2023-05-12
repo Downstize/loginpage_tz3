@@ -19,7 +19,7 @@ class ScheduleAdapter extends TypeAdapter<Schedule> {
     return Schedule()
       ..numWeek = fields[0] as int
       ..lname = fields[1] as String
-      ..type = fields[2] as String
+      ..stype = fields[2] as String
       ..teacher = fields[3] as String
       ..auditory = fields[4] as String
       ..dayNumber = fields[5] as String
@@ -36,7 +36,7 @@ class ScheduleAdapter extends TypeAdapter<Schedule> {
       ..writeByte(1)
       ..write(obj.lname)
       ..writeByte(2)
-      ..write(obj.type)
+      ..write(obj.stype)
       ..writeByte(3)
       ..write(obj.teacher)
       ..writeByte(4)

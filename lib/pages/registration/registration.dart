@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:loginpage_tz3/bd/hive_service.dart';
-import 'package:loginpage_tz3/hive_collections/user_model.dart';
+import 'package:loginpage_tz3/hive_collections/users_model.dart';
 import 'package:loginpage_tz3/main.dart';
 import 'package:loginpage_tz3/widgets/buttonWidget.dart';
 

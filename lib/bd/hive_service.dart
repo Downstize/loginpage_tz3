@@ -1,8 +1,10 @@
+import 'dart:developer';
+
 import 'package:hive/hive.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:loginpage_tz3/hive_collections/schedule_model.dart';
-import 'package:loginpage_tz3/hive_collections/user_model.dart';
+import 'package:loginpage_tz3/hive_collections/users_model.dart';
 import 'package:loginpage_tz3/hive_collections/todo_model.dart';
 import 'package:loginpage_tz3/hive_collections/session_model.dart';
 
@@ -31,12 +33,12 @@ class HiveService {
     final token = box.values.where((user) => user.tabNumber == tabNum);
     return token.isEmpty ? 1 : 0;
   }
-
+//fix unworking check of password
   Future<int> findUserPass(String value_tab2, String password) async {
     final box = await Hive.box<User>('user');
     final token = box.values.where((user) => user.tabNumber == value_tab2);
     final parol = token.where((user) => user.pass == password);
-    return parol.isEmpty ? 1 : 0;
+    return parol.isEmpty ? 0 : 1;
   }
 
   Future<void> addUser(
@@ -49,15 +51,62 @@ class HiveService {
       ..group = "УВП-211"
       ..email = email
       ..pass = rePassword
-      ..tabNumber = value_tab;
+      ..tabNumber = value_tab
+      ..type = 'teacher';
+    await box.add(newUser);
+  }
+
+  Future<void> addUser2(
+      String value_tab, String rePassword) async {
+    final box = await Hive.box<User>('user');
+    final newUser = User()
+      ..name = ""
+      ..kafedra = ""
+      ..institut = ""
+      ..group = ""
+      ..email = " "
+      ..pass = rePassword
+      ..tabNumber = value_tab
+      ..type = 'teacher';
+    await box.add(newUser);
+  }
+
+  Future<String> findUserType(String tabnum) async {
+    final box = await Hive.box<User>('user');
+    final example = box.values.where((user) => user.tabNumber == tabnum).toList();
+    final typer = example.isNotEmpty ? example[0].type : ' ';
+
+    log(typer);
+    return typer;
+  }
+
+  Future<void> userPlus(
+      String value_tab, String email, String rePassword, String utype, String name, String kafedra, String institut, String group) async {
+    final box = await Hive.box<User>('user');
+    final newUser = User()
+      ..name = name
+      ..kafedra = kafedra
+      ..institut = institut
+      ..group = group
+      ..email = email
+      ..pass = rePassword
+      ..tabNumber = value_tab
+      ..type = utype;
+      log(utype);
+      log(newUser.type);
     await box.add(newUser);
   }
 
   Future<void> clearTable() async {
     final box = await Hive.box<Schedule>('schedule');
     final box2 = await Hive.box<Session>('session');
+    //final box3 = await Hive.box<User>('user');
     box.clear();
     box2.clear();
+    //box3.clear();
+    // box.close();
+    // box2.close();
+    //box3.close();
   }
 
   Future<void> addSession(
@@ -130,7 +179,7 @@ class HiveService {
       ..numWeek = numWeek
       ..start = start
       ..teacher = teacher
-      ..type = type;
+      ..stype = type;
     await box.add(newSchedule);
     
   }
@@ -156,7 +205,7 @@ class HiveService {
       innerList[0] = schedules[i].auditory;
       innerList[1] = schedules[i].lname;
       innerList[2] = schedules[i].teacher;
-      innerList[3] = schedules[i].type;
+      innerList[3] = schedules[i].stype;
       innerList[4] = schedules[i].start;
       innerList[5] = schedules[i].end;
       output.add(innerList);

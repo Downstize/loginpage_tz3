@@ -55,6 +55,7 @@ dependencies:
   date_picker_timeline: ^1.2.3
   flutter_localizations:
     sdk: flutter
+  getwidget: ^2.0.4
 
   # devtools_shared: ^2.9.3
 

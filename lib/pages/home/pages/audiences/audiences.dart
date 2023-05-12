@@ -186,8 +186,8 @@ class _IntervalAudiencesPageState extends State<IntervalAudiencesPage> {
                                             Navigator.of(context).pop();
                                           },
                                           child: Text('Да',
-                                              style:
-                                                  TextStyle(color: Colors.white)),
+                                              style: TextStyle(
+                                                  color: Colors.white)),
                                         ),
                                       ),
                                       SizedBox(
@@ -203,8 +203,8 @@ class _IntervalAudiencesPageState extends State<IntervalAudiencesPage> {
                                             Navigator.of(context).pop();
                                           },
                                           child: Text('Нет',
-                                              style:
-                                                  TextStyle(color: Colors.white)),
+                                              style: TextStyle(
+                                                  color: Colors.white)),
                                         ),
                                       ),
                                     ],
@@ -215,10 +215,9 @@ class _IntervalAudiencesPageState extends State<IntervalAudiencesPage> {
                       },
                       child: Container(
                         decoration: BoxDecoration(
-                            color: CupertinoColors.tertiarySystemFill,
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
-                            border: Border.all(
-                                color: Color.fromRGBO(27, 54, 93, 1))),
+                          color: CupertinoColors.tertiarySystemFill,
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                        ),
                         child: Center(
                           child: Text(
                             '${index + 1}:00 - ${index + 2}:00',

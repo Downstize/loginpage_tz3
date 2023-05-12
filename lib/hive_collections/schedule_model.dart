@@ -9,7 +9,7 @@ class Schedule extends HiveObject {
   @HiveField(1)
   late String lname;
   @HiveField(2)
-  late String type;
+  late String stype;
   @HiveField(3)
   late String teacher;
   @HiveField(4)

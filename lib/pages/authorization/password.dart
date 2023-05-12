@@ -199,6 +199,7 @@ class _PasswordAuthPageState extends State<PasswordAuthPage> {
                                 ),
                               );
                             }
+                            h.addUser2(value_tab2, password);
                           }
                         : null,
                   ),
