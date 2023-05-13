@@ -176,7 +176,7 @@ class _HomePageState extends State<HomePage> {
     //print(userType + "u");
     // Conditionally define navigation bars based on the userType variable
     final navigationBarItems2 = userType == 'teacher'
-        ? const [
+        ?  [
             BottomNavigationBarItem(
               icon: Icon(Icons.home),
               label: 'Главная',
@@ -198,7 +198,7 @@ class _HomePageState extends State<HomePage> {
               label: "Профиль",
             ),
           ]
-        : const [
+        : [
             BottomNavigationBarItem(
               icon: Icon(Icons.home),
               label: 'Главная',

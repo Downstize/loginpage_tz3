@@ -107,7 +107,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       children: [
                         Expanded(
                           child: Container(
-                            margin: EdgeInsets.only(left: 20, right: 20, top: 15),
+                            margin: EdgeInsets.only(left: 20, right: 20, top: 20),
                             child: Column(
                               children: [
                                 // MenuProfileWidget(

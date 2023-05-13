@@ -97,16 +97,53 @@ class HiveService {
     await box.add(newUser);
   }
 
+  Future<void> clearOneUser(String tabNumber) async {
+    final box = await Hive.box<User>('user');
+    final ex = box.values.where((user) => user.tabNumber == tabNumber).toList();
+    final userToDeleteKey = box.keys.firstWhere(
+        (key) => box.get(key)?.tabNumber == tabNumber,
+        orElse: () => null);
+
+    if (userToDeleteKey != null) {
+      await box.delete(userToDeleteKey);
+    }
+
+    
+  }
+
+  Future<List<String>> getUserData(String numTab) async {
+    final box = await Hive.box<User>('user');
+    final ex = box.values.where((user) => user.tabNumber == numTab).toList();
+    final stName = ex[0].name;
+    final stGroup = ex[0].group;
+    final stMail = ex[0].email;
+    final result = ["$stName", "$stMail", "$stGroup"];
+    print(result);
+    return result;
+  }
+
   Future<void> clearTable() async {
     final box = await Hive.box<Schedule>('schedule');
     final box2 = await Hive.box<Session>('session');
-    //final box3 = await Hive.box<User>('user');
+    final box3 = await Hive.box<User>('user');
     box.clear();
     box2.clear();
-    //box3.clear();
-    // box.close();
-    // box2.close();
-    //box3.close();
+    box3.clear();
+  }
+
+  Future<void> clearSessionTable() async {
+    final box = await Hive.box<Session>('session');
+    box.clear();
+  }
+
+  Future<void> clearScheduleTable() async {
+    final box = await Hive.box<Schedule>('schedule');
+    box.clear();
+  }
+
+  Future<void> clearUserTable() async {
+    final box = await Hive.box<User>('user');
+    box.clear();
   }
 
   Future<void> addSession(
@@ -128,6 +165,7 @@ class HiveService {
       ..note1 = note1
       ..note2 = note2
       ..numSession = numSession;
+    print(newSession);
     await box.add(newSession);
   }
 
@@ -161,11 +199,12 @@ class HiveService {
   }
 
   Future<void> addSchedule2(
+    String schTabNum,
     String auditory,
     String dayNumber,
     String end,
     String name,
-    int numWeek,
+    String numWeek,
     String start,
     String teacher,
     String type,
@@ -176,10 +215,11 @@ class HiveService {
       ..dayNumber = dayNumber
       ..end = end
       ..lname = name
-      ..numWeek = numWeek
+      ..numWeek = int.parse(numWeek)
       ..start = start
       ..teacher = teacher
-      ..stype = type;
+      ..stype = type
+      ..schTabNum = schTabNum;
     await box.add(newSchedule);
     
   }
@@ -211,6 +251,60 @@ class HiveService {
       output.add(innerList);
     }
     return output;
+  }
+
+  Future<void> freshSchedule(String tabNum, String numW, String dayNum, String startTime, int valueIndex, String newValue) async {
+    final box = await Hive.box<Schedule>('schedule');
+    final schedule = box.values
+        .firstWhere((schedule) =>
+            schedule.dayNumber == dayNum && schedule.numWeek == numW && schedule.start == startTime && schedule.schTabNum == tabNum);
+    switch (valueIndex) {
+      case 0:
+        schedule.auditory = newValue;
+        break;
+      case 1:
+        schedule.lname = newValue;
+        break;
+      case 2:
+        schedule.teacher = newValue;
+        break;
+      case 3:
+        schedule.stype = newValue;
+        break;
+      case 4:
+        schedule.start = newValue;
+        break;
+      case 5:
+        schedule.end = newValue;
+        break;
+      // ...
+    }
+  }
+
+  Future<void> freshSession(String tabNum, String subject, String type, int valueIndex, String newValue) async {
+    final box = await Hive.box<Session>('session');
+    final session = box.values.firstWhere((session) =>
+        session.subject == subject &&
+        session.type == type &&
+        session.tabelnum == tabNum);
+    switch (valueIndex) {
+      case 0:
+        session.subject = newValue;
+        break;
+      case 1:
+        session.type = newValue;
+        break;
+      case 2:
+        session.steacher = newValue;
+        break;
+      case 3:
+        session.note1 = newValue;
+        break;
+      case 4:
+        session.note2 = newValue;
+        break;
+      // ...
+    }
   }
 
 }

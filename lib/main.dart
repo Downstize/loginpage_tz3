@@ -126,7 +126,7 @@ class Auth extends StatelessWidget {
           locale: const Locale('ru'),
           theme: ThemeData(fontFamily: 'Navigo'),
           debugShowCheckedModeBanner: false,
-          home: const AuthPage()),
+          home: const HomePage()),
     );
   }
 }

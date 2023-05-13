@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:loginpage_tz3/bd/hive_service.dart';
 import 'package:loginpage_tz3/main.dart';
 import 'package:loginpage_tz3/pages/registration/registration.dart';
+import '../../bd/api.dart';
 import '../forgotPassword/forgotpassword.dart';
 import 'password.dart';
 import 'package:loginpage_tz3/Services/internet_checker.dart';
@@ -13,6 +14,9 @@ import 'package:internet_connection_checker_plus/internet_connection_checker_plu
 
 bool passwordVisible = false;
 String value_tab2 = "";
+String studName = "";
+String studEmail = "";
+String studGroup = "";
 
 class AuthPage extends StatefulWidget {
   const AuthPage({super.key});
@@ -45,6 +49,7 @@ class _AuthPageState extends State<AuthPage> {
   @override
   Widget build(BuildContext context) {
     final h = HiveService();
+    final uApi = UseApi();
     return Scaffold(
       backgroundColor: backgroundColor,
       body: SingleChildScrollView(
@@ -150,11 +155,13 @@ class _AuthPageState extends State<AuthPage> {
                 ),
                 onPressed: buttonAuth
                     ? () async {
+                        uApi.parseInHive(value_tab2);
                         int checker2 = await h.findUsers(value_tab2);
                         log(checker2.toString());
                         if (checker2 == 0) {
                           if (numberCorrect()) {
                             // ignore: use_build_context_synchronously
+                            
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(

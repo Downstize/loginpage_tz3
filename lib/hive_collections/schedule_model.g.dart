@@ -24,13 +24,14 @@ class ScheduleAdapter extends TypeAdapter<Schedule> {
       ..auditory = fields[4] as String
       ..dayNumber = fields[5] as String
       ..start = fields[6] as String
-      ..end = fields[7] as String;
+      ..end = fields[7] as String
+      ..schTabNum = fields[8] == null ? '0000000' : fields[8] as String;
   }
 
   @override
   void write(BinaryWriter writer, Schedule obj) {
     writer
-      ..writeByte(8)
+      ..writeByte(9)
       ..writeByte(0)
       ..write(obj.numWeek)
       ..writeByte(1)
@@ -46,7 +47,9 @@ class ScheduleAdapter extends TypeAdapter<Schedule> {
       ..writeByte(6)
       ..write(obj.start)
       ..writeByte(7)
-      ..write(obj.end);
+      ..write(obj.end)
+      ..writeByte(8)
+      ..write(obj.schTabNum);
   }
 
   @override

@@ -20,4 +20,6 @@ class Schedule extends HiveObject {
   late String start;
   @HiveField(7)
   late String end;
+  @HiveField(8, defaultValue: "0000000")
+  late String schTabNum;
 }
